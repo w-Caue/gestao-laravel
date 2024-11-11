@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ isDarkMode: localStorage.getItem('dark') === 'true', navBar: false }" x-init="$watch('isDarkMode', val => localStorage.setItem('dark', val))"
+    x-bind:class="{ 'dark': isDarkMode }">
 
 <head>
     <meta charset="utf-8">
@@ -31,7 +32,21 @@
 </head>
 
 <body>
-    {{ $slot }}
+    <div class="flex h-screen">
+
+        @include('layouts.sidebar')
+
+        <div class="flex flex-col flex-1 ">
+            @include('layouts.navbar')
+            <main class="h-full w-full pb-16 mt-4 overflow-y-auto">
+
+                <div class="px-6 sm:mx-auto xl:mx-9">
+                    {{ $slot ?? '' }}
+                </div>
+            </main>
+        </div>
+
+    </div>
 
     @livewireScripts
 
