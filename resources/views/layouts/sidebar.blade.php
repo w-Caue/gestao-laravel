@@ -48,6 +48,28 @@
                 </div>
             </a>
 
+            <a href="{{ route('admin.agenda.calendar') }}"
+                class="relative flex justify-between items-center space-x-2 p-2 cursor-pointer {{ request()->routeIs('admin.agenda.*') ? 'text-blue-500 border-l-2 border-blue-500 ' : 'text-gray-400 hover:text-blue-500' }}">
+                <div class="w-full flex flex-col justify-center items-center">
+                    <x-icons.calendario class="size-6"></x-icons.calendario>
+
+                    <h1>
+                        Agenda
+                    </h1>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.servicos.listagem') }}"
+                class="relative flex justify-between items-center space-x-2 p-2 cursor-pointer {{ request()->routeIs('admin.servicos.*') ? 'text-blue-500 border-l-2 border-blue-500 ' : 'text-gray-400 hover:text-blue-500' }}">
+                <div class="w-full flex flex-col justify-center items-center">
+                    <x-icons.servicos class="size-6"></x-icons.servicos>
+
+                    <h1>
+                        Serviços
+                    </h1>
+                </div>
+            </a>
+
             <div class="border dark:border-gray-700"></div>
         </div>
     </div>

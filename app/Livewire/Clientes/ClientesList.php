@@ -26,7 +26,7 @@ class ClientesList extends Component
     {
         $this->form->save();
 
-        $this->dispatch('close-modal');
+        $this->dispatch('close-modal-medium');
 
         return $this->alert('success', 'Cliente ' . $this->form->codigo . ' cadastrado!', [
             'position' => 'center',

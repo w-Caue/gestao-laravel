@@ -12,14 +12,11 @@
             class="w-full px-4 py-4 overflow-hidden dark:text-gray-400 bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-6xl">
             <div class="flex justify-between items-start mx-1 mb-5 py-2">
 
-                <div class="flex items-center border-2 p-1 rounded-full dark:border-gray-700">
-                    <div class="text-blue-500">
-                        {{ $icone }}
-                    </div>
-
+                <div class="border-b-2 dark:border-gray-700">
                     <h1 class="text-md tracking-widest uppercase font-bold text-gray-400">{{ $title }} <span
                             class="text-blue-500">{{ $subtitle }}</span></h1>
                 </div>
+                
                 <button
                     class="inline-flex items-center justify-center text-gray-600 transition-colors duration-150 rounded bg-gray-200 dark:text-white dark:hover:text-red-500 dark:bg-gray-700"
                     aria-label="close" x-on:click="large = false">

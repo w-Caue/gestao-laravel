@@ -1,13 +1,20 @@
 <?php
 
+use App\Livewire\Agenda\Calendar;
 use App\Livewire\Auth\Login;
 use App\Livewire\Clientes\ClientesList;
+use App\Livewire\Clientes\ClientesRegister;
 use App\Livewire\Dashboard;
+use App\Livewire\Servicos\ServicosList;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', Login::class)->name('login');
+// Route::get('/login', Login::class)->name('login');
+
+Route::get('/login', function(){
+    return view('pages.auth.login');
+})->name('login');
 
 Route::get('/logout', function () {
     Auth::logout(false);
@@ -22,6 +29,19 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
 
     Route::prefix('/clientes')->name('clientes.')->group(function () {
         Route::get('/', ClientesList::class)
+            ->name('listagem');
+            
+        Route::get('/{codigo}', ClientesRegister::class)
+            ->name('register');
+    });
+
+    Route::prefix('/agenda')->name('agenda.')->group(function () {
+        Route::get('/', Calendar::class)
+            ->name('calendar');
+    });
+
+    Route::prefix('/servicos')->name('servicos.')->group(function () {
+        Route::get('/', ServicosList::class)
             ->name('listagem');
     });
 });
