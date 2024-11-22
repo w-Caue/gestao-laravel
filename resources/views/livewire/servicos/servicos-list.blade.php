@@ -66,6 +66,14 @@
                                 <th class="px-4 py-3">
                                     <div class="flex justify-center items-center cursor-pointer">
                                         <button class="text-xs font-medium leading-4 tracking-wider uppercase">
+                                            Data Cadastro
+                                        </button>
+                                    </div>
+                                </th>
+
+                                <th class="px-4 py-3">
+                                    <div class="flex justify-center items-center cursor-pointer">
+                                        <button class="text-xs font-medium leading-4 tracking-wider uppercase">
                                             Ação
                                         </button>
                                     </div>
@@ -74,43 +82,40 @@
                         </thead>
 
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            {{-- @foreach ($clientes as $cliente)
-                            <tr wire:key="{{ $cliente->id }}" class="font-bold text-sm text-gray-700 dark:text-gray-300">
-                                <td class="py-3 text-center">
-                                    #{{ $cliente->id }}
+                            @foreach ($servicos as $servico)
+                                <tr wire:key="{{ $servico->id }}"
+                                    class="font-bold text-sm text-gray-700 dark:text-gray-300">
+                                    <td class="py-3 text-center">
+                                        #{{ $servico->id }}
+                                    </td>
+
+                                    <td class="py-3 px-28 text-center">
+
+                                        {{ $servico->descricao }}
+                                    </td>
+
+                                    <td class="py-3 pr-8 text-xs text-center">
+                                        R$ {{ $servico->preco }}
+                                    </td>
+
+                                     <td class="py-3 text-center">
+                                    {{ date('d/m/Y', strtotime($servico->data_cadastro)) }}
                                 </td>
 
-                                <td class="py-3 px-28 text-center">
-
-                                    {{ $cliente->nome }}
-                                </td>
-
-                                <td class="py-3 pr-8 text-xs text-center">
-                                    {{ $cliente->telefone }}
-                                </td>
-
-                                <td class="py-3 text-center">
-
-                                </td>
-
-                                <td class="py-3 text-center">
-                                    {{ date('d/m/Y', strtotime($cliente->data_cadastro)) }}
-                                </td>
-
-                                <td class="py-3 flex justify-center">
-                                    <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
-                                        wire:click="$dispatchTo('clientes.clientes-register','consulta', { codigo: {{ $cliente->id }}})"
-                                        x-data x-on:click="$dispatch('large-modal', { name : 'cadastroCompleto' })">
-                                        <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="currentColor">
-                                            <path
-                                                d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748ZM12.1779 7.17624C11.4834 7.48982 11 8.18846 11 9C11 10.1046 11.8954 11 13 11C13.8115 11 14.5102 10.5166 14.8238 9.82212C14.9383 10.1945 15 10.59 15 11C15 13.2091 13.2091 15 11 15C8.79086 15 7 13.2091 7 11C7 8.79086 8.79086 7 11 7C11.41 7 11.8055 7.06167 12.1779 7.17624Z">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                        @endforeach --}}
+                                    <td class="py-3 flex justify-center">
+                                        <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+                                            wire:click="$dispatchTo('clientes.clientes-register','consulta', { codigo: {{ $servico->id }}})"
+                                            x-data x-on:click="$dispatch('large-modal', { name : 'cadastroCompleto' })">
+                                            <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor">
+                                                <path
+                                                    d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748ZM12.1779 7.17624C11.4834 7.48982 11 8.18846 11 9C11 10.1046 11.8954 11 13 11C13.8115 11 14.5102 10.5166 14.8238 9.82212C14.9383 10.1945 15 10.59 15 11C15 13.2091 13.2091 15 11 15C8.79086 15 7 13.2091 7 11C7 8.79086 8.79086 7 11 7C11.41 7 11.8055 7.06167 12.1779 7.17624Z">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -207,7 +212,7 @@
                 <div x-show="servico === 2">
                     <div class="sm:w-32">
                         <x-inputs.label value="{{ 'Preço' }}" />
-                        <x-inputs.text wire:model="form.preco" x-mask:dynamic="$money($input, '.', ' ')"/>
+                        <x-inputs.text wire:model="form.preco" x-mask:dynamic="$money($input, '.', ' ')" />
                     </div>
                     @error('preco')
                         <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>

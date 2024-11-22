@@ -9,7 +9,8 @@ class ClientesCards extends Component
 {
     public $total;
     public $novos;
-    public $deletados;
+    public $deletados; 
+    public $inativos; 
 
     public function consultas()
     {
@@ -18,6 +19,8 @@ class ClientesCards extends Component
         $mes = date('m');
 
         $this->novos = Cliente::whereMonth('data_cadastro', $mes)->count();
+
+        $this->inativos = Cliente::get('inativo')->count();
     }
 
     public function render()

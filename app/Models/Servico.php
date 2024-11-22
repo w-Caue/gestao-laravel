@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Servico extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'descricao',
+        'imagem',
+        'preco',
+        'inativo',
+        'data_cadastro'
+    ];
 }

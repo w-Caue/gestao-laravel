@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('descricao');
             $table->float('preco', 9, 2)->nullable();
-            $table->string('imagem');
+            $table->string('imagem')->nullable();
             $table->enum('inativo', ['S', 'N'])->default('N');
+            $table->dateTime('data_cadastro');
             $table->timestamps();
         });
     }

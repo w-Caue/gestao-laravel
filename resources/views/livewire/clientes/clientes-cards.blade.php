@@ -25,7 +25,7 @@
             </a>
 
             <a class="hover:shadow-lg" title="Total de clientes deletados">
-                <x-card.icon-card title="Clientes Inativos" subtitle="">
+                <x-card.icon-card title="Clientes Inativos" subtitle="{{ $inativos }}">
                     <div class="p-3 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                             <path

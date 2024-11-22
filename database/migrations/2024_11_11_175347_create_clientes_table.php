@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('nome');
             $table->string('email')->unique()->nullable();
             $table->string('telefone', 14)->nullable();
-            $table->enum('favorito', [0, 1])->default(0);
+            $table->enum('favorito', ['S', 'N'])->default('S');
+            $table->enum('inativo', ['S', 'N'])->default('N');
             $table->dateTime('data_cadastro');
             $table->timestamps();
         });
