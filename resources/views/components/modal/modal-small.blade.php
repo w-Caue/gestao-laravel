@@ -10,10 +10,15 @@
         </div>
         <div
             class="w-full px-4 py-4 overflow-hidden dark:text-gray-400 bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-lg">
-            <div class="flex justify-between items-center mx-1 mb-5">
-                <h1 class="text-md tracking-widest uppercase text-gray-500 font-semibold">{{ $title ?? '' }}</h1>
+            <div class="flex justify-between items-start mx-1 mb-5 py-2">
+
+                <div class="border-b-2 dark:border-gray-700">
+                    <h1 class="text-md tracking-widest uppercase font-bold text-gray-400">{{ $title }} <span
+                            class="text-blue-500">{{ $subtitle }}</span></h1>
+                </div>
+
                 <button
-                    class="inline-flex items-center justify-center  text-gray-400 transition-colors duration-150 rounded hover:text-gray-700"
+                    class="inline-flex items-center justify-center text-gray-600 transition-colors duration-150 rounded bg-gray-200 dark:text-white dark:hover:text-red-500 dark:bg-gray-700"
                     aria-label="close" x-on:click="open = false">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
                         <path

@@ -5,6 +5,7 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Clientes\ClientesList;
 use App\Livewire\Clientes\ClientesRegister;
 use App\Livewire\Dashboard;
+use App\Livewire\Pedidos\PedidosList;
 use App\Livewire\Servicos\ServicosList;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,11 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
 
     Route::prefix('/servicos')->name('servicos.')->group(function () {
         Route::get('/', ServicosList::class)
+            ->name('listagem');
+    });
+
+    Route::prefix('/pedidos')->name('pedidos.')->group(function () {
+        Route::get('/', PedidosList::class)
             ->name('listagem');
     });
 });

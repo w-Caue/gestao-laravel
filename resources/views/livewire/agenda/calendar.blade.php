@@ -1,6 +1,6 @@
 <div>
 
-    <div class="h-screen xl:w-2/3 bg-white p-5 rounded-lg" id="calendar">
+    <div class="h-screen w-full bg-white p-5 rounded-lg" id="calendar">
 
     </div>
 
