@@ -9,18 +9,24 @@ class ClientesCards extends Component
 {
     public $total;
     public $novos;
-    public $deletados; 
+    public $favoritos; 
     public $inativos; 
+
+    public $listeners = [
+        'consultas' => 'consultas',
+    ];
 
     public function consultas()
     {
-        $this->total = Cliente::get('id')->count();
+        $this->total = Cliente::get('ID')->count();
 
         $mes = date('m');
 
-        $this->novos = Cliente::whereMonth('data_cadastro', $mes)->count();
+        $this->novos = Cliente::whereMonth('DATA_CADASTRO', $mes)->count();
 
-        $this->inativos = Cliente::get('inativo')->count();
+        $this->inativos = Cliente::where('INATIVO', 'S')->count();
+
+        $this->favoritos = Cliente::where('FAVORITO', 'S')->count();
     }
 
     public function render()

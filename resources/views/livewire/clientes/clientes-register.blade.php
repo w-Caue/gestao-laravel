@@ -25,6 +25,17 @@
                 </div>
 
                 <div x-show="cliente === 1" class="mt-3 mx-6">
+
+                    <div>
+                        <div
+                            class="inline-flex items-center w-full text-xs font-semibold uppercase transition-colors duration-150 ">
+                            <x-checkbox.primary wire:model.live="form.inativo" class="mr-2"
+                                id="inativo"></x-checkbox.primary>
+
+                            <x-inputs.label value="{{ 'Inativo' }}" />
+                        </div>
+                    </div>
+
                     <div class="flex flex-wrap gap-3 mt-3">
 
                         <div class="sm:w-72 w-full">

@@ -21,15 +21,19 @@ class ClienteForm extends Form
 
     public $dataCadastro;
 
+    public $inativo;
+
+    public $clienteFavorito;
+
     public function save()
     {
         // $this->validate();
 
         $cliente = Cliente::create([
-            'nome' => strtoupper($this->nome),
-            'email' => strtoupper($this->email),
-            'telefone' => $this->telefone,
-            'data_cadastro' => date('Y-m-d'),
+            'NOME' => strtoupper($this->nome),
+            'EMAIL' => strtoupper($this->email),
+            'TELEFONE' => $this->telefone,
+            'DATA_CADASTRO' => date('Y-m-d'),
         ]);
 
         $this->codigo = $cliente->id;
@@ -39,24 +43,55 @@ class ClienteForm extends Form
 
     public function show($codigo)
     {
-        $cliente = Cliente::where('id', $codigo)->first();
+        $cliente = Cliente::where('ID', $codigo)->first();
 
-        $this->codigo = $cliente->id;
-        $this->nome = $cliente->nome;
-        $this->email = $cliente->email;
-        $this->telefone = $cliente->telefone;
-        $this->dataCadastro = date('Y-m-d', strtotime($cliente->data_cadastro));
+        $this->codigo = $cliente->ID;
+        $this->nome = $cliente->NOME;
+        $this->email = $cliente->EMAIL;
+        $this->telefone = $cliente->TELEFONE;
+        $this->dataCadastro = date('Y-m-d', strtotime($cliente->DATA_CADASTRO));
+
+        $inativo = 'N';
+        if ($this->inativo) {
+            $inativo = 'S';
+        }
+
+        $this->inativo = $inativo;
 
         return;
     }
 
     public function update()
     {
+        $inativo = 'N';
+        
+        if ($this->inativo) {
+            $inativo = 'S';
+        }
+
         $cliente = Cliente::findOrFail($this->codigo)->update([
-            'nome' => strtoupper($this->nome),
-            'email' => strtoupper($this->email),
-            'telefone' => $this->telefone,
-            'data_cadastro' => $this->dataCadastro,
+            'NOME' => strtoupper($this->nome),
+            'EMAIL' => strtoupper($this->email),
+            'TELEFONE' => $this->telefone,
+            'DATA_CADASTRO' => $this->dataCadastro,
+            'INATIVO' => $inativo,
+        ]);
+
+        return $cliente;
+    }
+
+    public function setFavorito($codigo)
+    {
+        $cliente = Cliente::where('ID', $codigo)->get('FAVORITO')->first();
+
+        $this->clienteFavorito = 'N';
+
+        if ($cliente->FAVORITO == 'N') {
+            $this->clienteFavorito = 'S';
+        }
+
+        $cliente = Cliente::where('ID', $codigo)->update([
+            'FAVORITO' => $this->clienteFavorito,
         ]);
 
         return $cliente;

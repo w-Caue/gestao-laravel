@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clientes', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome');
-            $table->string('email')->unique()->nullable();
-            $table->string('telefone', 14)->nullable();
-            $table->enum('favorito', ['S', 'N'])->default('S');
-            $table->enum('inativo', ['S', 'N'])->default('N');
-            $table->dateTime('data_cadastro');
+        Schema::create('CLIENTES', function (Blueprint $table) {
+            $table->id('ID');
+            $table->string('NOME');
+            $table->string('EMAIL')->unique()->nullable();
+            $table->string('TELEFONE', 14)->nullable();
+            $table->enum('FAVORITO', ['S', 'N'])->default('N');
+            $table->enum('INATIVO', ['S', 'N'])->default('N');
+            $table->dateTime('DATA_CADASTRO');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('CLIENTES');
     }
 };
