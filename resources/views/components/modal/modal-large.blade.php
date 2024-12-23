@@ -1,11 +1,11 @@
 <div class="flex justify-center">
-    <div x-data="{ large: false, name: '{{ $name }}' }" x-show="large" x-cloak x-on:large-modal.window="large = ($event.detail.name === name)"
+    <div x-data="{ large: false, name: '{{ $name }}' }" x-show="large" x-cloak x-on:open-large-modal.window="large = ($event.detail.name === name)"
         x-on:close-modal-large.window="large = false" x-on:keydown.escape.window="large = false"
         x-on:escape.window="large = false" x-transition:enter="transition ease-out duration-150"
         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+        class="fixed inset-0 z-[60] flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
         <div x-on:click ="large = false" class="fixed">
         </div>
         <div
