@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Servico extends Model
 {
     protected $fillable = [
-        'descricao',
-        'imagem',
-        'preco',
-        'inativo',
-        'data_cadastro'
+        'DESCRICAO',
+        'IMAGEM',
+        'PRECO',
+        'INATIVO',
+        'DATA_CADASTRO'
     ];
 }

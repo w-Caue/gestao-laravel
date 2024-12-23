@@ -5,22 +5,9 @@
 
             <!-- Card -->
             <a class="hover:shadow-lg" title="Total de clientes">
-                <x-card.icon-card title="total de Serviços" subtitle="">
+                <x-card.icon-card title="total de Serviços" subtitle="{{ $total }}">
                     <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
                         <x-icons.servicos class="size-6" />
-                    </div>
-                </x-card.icon-card>
-            </a>
-
-            <a class="hover:shadow-lg" title="Clientes cadastrados esse mês">
-                <x-card.icon-card title="Favoritos" subtitle="">
-                    <div
-                        class="p-3 mr-4 text-purple-500 bg-purple-100 rounded-full dark:text-purple-100 dark:bg-purple-500">
-                        <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12.0006 18.26L4.94715 22.2082L6.52248 14.2799L0.587891 8.7918L8.61493 7.84006L12.0006 0.5L15.3862 7.84006L23.4132 8.7918L17.4787 14.2799L19.054 22.2082L12.0006 18.26Z">
-                            </path>
-                        </svg>
                     </div>
                 </x-card.icon-card>
             </a>
@@ -38,7 +25,7 @@
             </a>
 
             <a class="hover:shadow-lg" title="Serviços Inativos">
-                <x-card.icon-card title="Serviços Inativos" subtitle="">
+                <x-card.icon-card title="Serviços Inativos" subtitle="{{ $inativos }}">
                     <div class="p-3 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
                         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                             <path
