@@ -180,13 +180,12 @@
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         @foreach ($clientes as $cliente)
                             <tr wire:key="{{ $cliente->ID }}"
-                                class="font-bold text-sm {{ $cliente->inativo == 'S' ? 'text-purple-700' : 'text-gray-700 dark:text-gray-300' }}">
+                                class="font-bold text-sm {{ $cliente->INATIVO == 'S' ? 'text-purple-700' : 'text-gray-700 dark:text-gray-300' }}">
                                 <td class="py-3 text-center">
                                     #{{ $cliente->ID }}
                                 </td>
 
                                 <td class="py-3 px-28 text-center">
-
                                     {{ $cliente->NOME }}
                                 </td>
 

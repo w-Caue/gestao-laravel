@@ -41,6 +41,8 @@ class ClientesList extends Component
         $clientes = Cliente::select([
             'CLIENTES.*'
         ])
+            // ->where('INATIVO', 'N')
+
             ->when(!empty($this->search), function ($query) {
                 $search = strtoupper($this->search);
                 $search  = str_replace(" ", "%", $search);
@@ -48,11 +50,11 @@ class ClientesList extends Component
             })
 
             ->when($this->favoritos, function ($query) {
-                return $query->where('favorito', 'S');
+                return $query->where('FAVORITO', 'S');
             })
 
             ->when($this->inativos, function ($query) {
-                return $query->where('inativo', 'S');
+                return $query->where('INATIVO', 'S');
             })
 
             ->orderBy($this->sortField, $this->sortAsc ? 'ASC' : 'DESC')

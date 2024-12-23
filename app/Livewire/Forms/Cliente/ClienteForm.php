@@ -51,9 +51,10 @@ class ClienteForm extends Form
         $this->telefone = $cliente->TELEFONE;
         $this->dataCadastro = date('Y-m-d', strtotime($cliente->DATA_CADASTRO));
 
-        $inativo = 'N';
-        if ($this->inativo) {
-            $inativo = 'S';
+        $inativo = false;
+
+        if ($cliente->INATIVO == 'S') {
+            $inativo = true;
         }
 
         $this->inativo = $inativo;
@@ -64,16 +65,15 @@ class ClienteForm extends Form
     public function update()
     {
         $inativo = 'N';
-        
+
         if ($this->inativo) {
             $inativo = 'S';
         }
 
-        $cliente = Cliente::findOrFail($this->codigo)->update([
+        $cliente = Cliente::where('ID', $this->codigo)->update([
             'NOME' => strtoupper($this->nome),
             'EMAIL' => strtoupper($this->email),
             'TELEFONE' => $this->telefone,
-            'DATA_CADASTRO' => $this->dataCadastro,
             'INATIVO' => $inativo,
         ]);
 
