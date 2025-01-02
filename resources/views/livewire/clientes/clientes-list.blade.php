@@ -9,10 +9,10 @@
 
         <div class="relative w-full flex sm:flex-row flex-col items-center justify-between gap-5 px-2">
             <div class="flex items-end justify-between gap-5">
-                <div class="sm:w-80">
+                <div>
                     <span class="font-bold text-gray-500">Pesquise aqui</span>
-                    <div class="flex items-center gap-1">
-                        <x-inputs.text wire:model.defer="search" wire:keydown.enter='dados()'
+                    <div class="flex items-end gap-1">
+                        <x-input class="sm:w-80 uppercase tracking-widest" wire:model.defer="search" wire:keydown.enter='dados()'
                             placeholder="Pesquise o cliente pelo {{ str_replace('.', '>', $sortField) }}" />
 
                         <x-buttons.primary wire:click="dados()">
@@ -180,7 +180,7 @@
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         @foreach ($clientes as $cliente)
                             <tr wire:key="{{ $cliente->ID }}"
-                                class="font-bold text-sm {{ $cliente->INATIVO == 'S' ? 'text-purple-700' : 'text-gray-700 dark:text-gray-300' }}">
+                                class="font-bold text-sm {{ $cliente->ATIVO == 'N' ? 'text-purple-700' : 'text-gray-700 dark:text-gray-300' }}">
                                 <td class="py-3 text-center">
                                     #{{ $cliente->ID }}
                                 </td>
@@ -221,7 +221,7 @@
                                 <td class="py-3 flex justify-center">
                                     <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
                                         wire:click="$dispatchTo('clientes.clientes-register','consulta', { codigo: {{ $cliente->ID }}})"
-                                        x-data x-on:click="$dispatch('large-modal', { name : 'cadastroCompleto' })">
+                                        x-data x-on:click="$dispatch('open-large-modal', { name : 'cadastroCompleto' })">
                                         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="currentColor">
                                             <path
@@ -241,7 +241,7 @@
             @foreach ($clientes as $cliente)
                 <div wire:key="{{ $cliente->ID }}"
                     wire:click="$dispatchTo('clientes.clientes-register','consulta', { codigo: {{ $cliente->ID }}})"
-                    x-data x-on:click="$dispatch('large-modal', { name : 'cadastroCompleto' })"
+                    x-data x-on:click="$dispatch('open-large-modal', { name : 'cadastroCompleto' })"
                     class="w-full p-2 rounded-lg space-y-2 border-2 shadow-lg hover:scale-105 dark:hover:shadow-gray-700 transition-all dark:border-gray-700 hover:cursor-pointer">
                     <div class="flex justify-between items-center">
                         <span class="font-bold">#{{ $cliente->ID }}</span>
@@ -252,7 +252,7 @@
 
                     </div>
 
-                    <span class="font-bold text-sm tracking-widest uppercase">
+                    <span class="font-bold text-sm tracking-widest uppercase text-blue-500">
                         {{ $cliente->NOME }}
 
                     </span>
@@ -276,7 +276,7 @@
 
                     <div class="sm:w-72">
                         <x-inputs.label value="{{ 'Nome*' }}" />
-                        <x-inputs.text wire:model="form.nome" />
+                        <x-input wire:model="form.nome" />
                     </div>
                     @error('nome')
                         <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>
@@ -284,7 +284,7 @@
 
                     <div class="sm:w-72">
                         <x-inputs.label value="{{ 'Email' }}" />
-                        <x-inputs.text wire:model="form.email" />
+                        <x-input wire:model="form.email" />
                     </div>
 
                     @error('email')
@@ -293,7 +293,7 @@
 
                     <div class="w-44">
                         <x-inputs.label value="{{ 'Telefone' }}" />
-                        <x-inputs.text wire:model="form.telefone"
+                        <x-input wire:model="form.telefone"
                             x-mask:dynamic="
                         $input.startsWith('11') || $input.startsWith('14')
                             ? '9 9999 9999' : '99 9 9999 9999'

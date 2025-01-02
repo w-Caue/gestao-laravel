@@ -24,7 +24,7 @@ class ClientesCards extends Component
 
         $this->novos = Cliente::whereMonth('DATA_CADASTRO', $mes)->count();
 
-        $this->inativos = Cliente::where('INATIVO', 'S')->count();
+        $this->inativos = Cliente::where('ATIVO', 'N')->count();
 
         $this->favoritos = Cliente::where('FAVORITO', 'S')->count();
     }

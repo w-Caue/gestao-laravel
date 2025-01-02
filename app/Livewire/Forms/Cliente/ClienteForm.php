@@ -53,7 +53,7 @@ class ClienteForm extends Form
 
         $inativo = false;
 
-        if ($cliente->INATIVO == 'S') {
+        if ($cliente->ATIVO == 'N') {
             $inativo = true;
         }
 
@@ -64,17 +64,17 @@ class ClienteForm extends Form
 
     public function update()
     {
-        $inativo = 'N';
+        $inativo = 'S';
 
         if ($this->inativo) {
-            $inativo = 'S';
+            $inativo = 'N';
         }
 
         $cliente = Cliente::where('ID', $this->codigo)->update([
             'NOME' => strtoupper($this->nome),
             'EMAIL' => strtoupper($this->email),
             'TELEFONE' => $this->telefone,
-            'INATIVO' => $inativo,
+            'ATIVO' => $inativo,
         ]);
 
         return $cliente;

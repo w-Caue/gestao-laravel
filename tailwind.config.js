@@ -1,13 +1,19 @@
+import forms from '@tailwindcss/forms';
+
 /** @type {import('tailwindcss').Config} */
 export default {
+  presets: [
+    require('./vendor/tallstackui/tallstackui/tailwind.config.js')
+  ],
   content: [
     "./resources/**/*.blade.php",
-    "./resources/**/*.js"
+    "./resources/**/*.js",
+    './vendor/tallstackui/tallstackui/src/**/*.php', 
   ],
   darkMode: 'class',
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [forms],
 }
 

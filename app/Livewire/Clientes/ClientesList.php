@@ -24,7 +24,7 @@ class ClientesList extends Component
 
     #FILTROS
     public $favoritos;
-    public $inativos;
+    public $ativos;
 
     public function sortBy($field)
     {
@@ -41,8 +41,6 @@ class ClientesList extends Component
         $clientes = Cliente::select([
             'CLIENTES.*'
         ])
-            // ->where('INATIVO', 'N')
-
             ->when(!empty($this->search), function ($query) {
                 $search = strtoupper($this->search);
                 $search  = str_replace(" ", "%", $search);
@@ -53,9 +51,9 @@ class ClientesList extends Component
                 return $query->where('FAVORITO', 'S');
             })
 
-            ->when($this->inativos, function ($query) {
-                return $query->where('INATIVO', 'S');
-            })
+            // ->when($this->ativos, function ($query) {
+            //     return $query->where('INATIVO', 'S');
+            // })
 
             ->orderBy($this->sortField, $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate(5);

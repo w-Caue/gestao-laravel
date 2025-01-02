@@ -32,6 +32,8 @@
             display: none;
         }
     </style>
+    
+    <tallstackui:script /> 
 
     @vite('resources/css/app.css')
 
