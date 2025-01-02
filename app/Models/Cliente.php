@@ -12,7 +12,9 @@ class Cliente extends Model
         'EMAIL',
         'TELEFONE',
         'FAVORITO',
+        'TIPO',
+        'ENDERECO',
+        'ATIVO',
         'DATA_CADASTRO',
-        'INATIVO',
     ];
 }

@@ -36,16 +36,6 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
             ->name('register');
     });
 
-    Route::prefix('/agenda')->name('agenda.')->group(function () {
-        Route::get('/', Calendar::class)
-            ->name('calendar');
-    });
-
-    Route::prefix('/servicos')->name('servicos.')->group(function () {
-        Route::get('/', ServicosList::class)
-            ->name('listagem');
-    });
-
     Route::prefix('/pedidos')->name('pedidos.')->group(function () {
         Route::get('/', PedidosList::class)
             ->name('listagem');
