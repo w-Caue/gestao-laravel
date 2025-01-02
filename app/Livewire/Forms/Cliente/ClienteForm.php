@@ -19,11 +19,14 @@ class ClienteForm extends Form
     #[Validate('min:12')]
     public $telefone;
 
+    public $tipo = 'C';
+
     public $dataCadastro;
 
     public $inativo;
 
     public $clienteFavorito;
+
 
     public function save()
     {
@@ -33,6 +36,7 @@ class ClienteForm extends Form
             'NOME' => strtoupper($this->nome),
             'EMAIL' => strtoupper($this->email),
             'TELEFONE' => $this->telefone,
+            'TIPO' => $this->tipo,
             'DATA_CADASTRO' => date('Y-m-d'),
         ]);
 
@@ -49,6 +53,7 @@ class ClienteForm extends Form
         $this->nome = $cliente->NOME;
         $this->email = $cliente->EMAIL;
         $this->telefone = $cliente->TELEFONE;
+        $this->tipo = $cliente->TIPO;
         $this->dataCadastro = date('Y-m-d', strtotime($cliente->DATA_CADASTRO));
 
         $inativo = false;
@@ -74,6 +79,7 @@ class ClienteForm extends Form
             'NOME' => strtoupper($this->nome),
             'EMAIL' => strtoupper($this->email),
             'TELEFONE' => $this->telefone,
+            'TIPO' => $this->tipo,
             'ATIVO' => $inativo,
         ]);
 

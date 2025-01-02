@@ -12,7 +12,8 @@
                 <div>
                     <span class="font-bold text-gray-500">Pesquise aqui</span>
                     <div class="flex items-end gap-1">
-                        <x-input class="sm:w-80 uppercase tracking-widest" wire:model.defer="search" wire:keydown.enter='dados()'
+                        <x-input class="sm:w-80 uppercase tracking-widest" wire:model.defer="search"
+                            wire:keydown.enter='dados()'
                             placeholder="Pesquise o cliente pelo {{ str_replace('.', '>', $sortField) }}" />
 
                         <x-buttons.primary wire:click="dados()">
@@ -221,7 +222,8 @@
                                 <td class="py-3 flex justify-center">
                                     <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
                                         wire:click="$dispatchTo('clientes.clientes-register','consulta', { codigo: {{ $cliente->ID }}})"
-                                        x-data x-on:click="$dispatch('open-large-modal', { name : 'cadastroCompleto' })">
+                                        x-data
+                                        x-on:click="$dispatch('open-large-modal', { name : 'cadastroCompleto' })">
                                         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="currentColor">
                                             <path
@@ -274,13 +276,25 @@
 
                 <div class="flex flex-wrap gap-3">
 
-                    <div class="sm:w-72">
-                        <x-inputs.label value="{{ 'Nome*' }}" />
-                        <x-input wire:model="form.nome" />
+                    <div class="flex gap-4 items-center">
+                        <div class="sm:w-72">
+                            <x-inputs.label value="{{ 'Nome*' }}" />
+                            <x-input wire:model="form.nome" />
+                        </div>
+                        @error('nome')
+                            <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>
+                        @enderror
+
+                        <div class="flex gap-1">
+                            <x-radio name="tipo" wire:model="form.tipo" value="C"/>
+                            <x-inputs.label value="{{ 'Cliente' }}" />
+                        </div>
+
+                        <div class="flex gap-1">
+                            <x-radio name="tipo" wire:model="form.tipo" value="V"/>
+                            <x-inputs.label value="{{ 'Vendedor' }}" />
+                        </div>
                     </div>
-                    @error('nome')
-                        <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>
-                    @enderror
 
                     <div class="sm:w-72">
                         <x-inputs.label value="{{ 'Email' }}" />

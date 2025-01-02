@@ -26,13 +26,22 @@
 
                 <div x-show="cliente === 1" class="mt-3 mx-6">
 
-                    <div>
+                    <div class="flex gap-4">
                         <div
                             class="inline-flex items-center w-full text-xs font-semibold uppercase transition-colors duration-150 ">
-                            <x-checkbox wire:model.live="form.inativo" class="mr-2"
-                                id="inativo" />
+                            <x-checkbox wire:model.live="form.inativo" class="mr-2" id="inativo" />
 
                             <x-inputs.label value="{{ 'Inativo' }}" />
+                        </div>
+
+                        <div class="flex gap-1">
+                            <x-radio name="tipo" wire:model="form.tipo" value="C" />
+                            <x-inputs.label value="{{ 'Cliente' }}" />
+                        </div>
+
+                        <div class="flex gap-1">
+                            <x-radio name="tipo" wire:model="form.tipo" value="V" />
+                            <x-inputs.label value="{{ 'Vendedor' }}" />
                         </div>
                     </div>
 

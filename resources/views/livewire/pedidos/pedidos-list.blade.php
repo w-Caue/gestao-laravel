@@ -4,10 +4,10 @@
 
         <div class="relative w-full flex sm:flex-row flex-col justify-between gap-5">
             <div class="flex items-end justify-between gap-5">
-                <div class="sm:w-96 w-full">
+                <div>
                     <span class="font-bold text-gray-500">Pesquise aqui</span>
-                    <div class="flex items-center gap-1">
-                        <x-inputs.text wire:model.defer="search" wire:keydown.enter='data()'
+                    <div class="flex items-end gap-1">
+                        <x-input class="sm:w-80 w-full uppercase tracking-widest" wire:model.defer="search" wire:keydown.enter='data()'
                             placeholder="Pesquise o pedido pelo {{ str_replace('.', '>', $sortField) }}" />
 
                         <x-buttons.primary wire:click="dados()">
@@ -156,7 +156,7 @@
                             <th class="px-4 py-3">
                                 <div class="flex justify-center items-center cursor-pointer">
                                     <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                        Tipo
+                                        Pagamento
                                     </button>
                                 </div>
                             </th>

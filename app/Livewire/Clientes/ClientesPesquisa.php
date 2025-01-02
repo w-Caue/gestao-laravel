@@ -39,7 +39,7 @@ class ClientesPesquisa extends Component
         $clientes = Cliente::select([
             'CLIENTES.*'
         ])
-            // ->where('INATIVO', 'N')
+            ->where('TIPO', 'C')
 
             ->when(!empty($this->search), function ($query) {
                 $search = strtoupper($this->search);

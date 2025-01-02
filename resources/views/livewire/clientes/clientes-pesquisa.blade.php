@@ -7,10 +7,10 @@
 
             <div class="relative w-full flex sm:flex-row flex-col justify-between gap-5 px-2">
                 <div class="flex items-end justify-between gap-5">
-                    <div class="sm:w-80 w-full">
+                    <div>
                         <span class="font-bold text-gray-500">Pesquise aqui</span>
                         <div class="flex items-center gap-1">
-                            <x-inputs.text wire:model.defer="search" wire:keydown.enter='dados()'
+                            <x-input class="sm:w-80 w-full uppercase tracking-widest" wire:model.defer="search" wire:keydown.enter='dados()'
                                 placeholder="Pesquise o cliente pelo {{ str_replace('.', '>', $sortField) }}" />
 
                             <x-buttons.primary wire:click="dados()">
