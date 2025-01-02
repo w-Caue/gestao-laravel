@@ -39,7 +39,7 @@ return new class extends Migration
         Schema::table('CLIENTES', function (Blueprint $table) {
             $table->dropForeign('clientes_endereco_id_foreign');
             
-            $table->dropColumn('ENDERCO_ID');
+            $table->dropColumn('ENDERECO_ID');
         });
 
         Schema::dropIfExists('ENDERECOS');
