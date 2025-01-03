@@ -3,6 +3,7 @@
 namespace App\Livewire\Pedidos;
 
 use App\Models\Cliente;
+use App\Models\Funcionario;
 use App\Models\Pedido;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -13,6 +14,7 @@ class PedidoNovo extends Component
 
     public $codCliente;
     public $clientePedido;
+    public $cliente;
 
     public $listVendedor;
 
@@ -33,30 +35,66 @@ class PedidoNovo extends Component
     {
         $this->codCliente = $codigo;
 
-        $this->clientePedido = Cliente::where('ID', $codigo)->get(['ID', 'NOME'])->first();
+        $cliente = Cliente::where('ID', $codigo)->get(['ID', 'NOME'])->first();
+
+        if (!$cliente) {
+            return $this->alert('error', 'Cliente não encontrado!', [
+                'position' => 'center',
+                'timer' => '3000',
+                'toast' => true,
+            ]);
+        }
+
+        $this->params();
 
         $this->dispatch('close-modal-large');
+
+        $this->clientePedido = $cliente->NOME;
+
+        return $this->cliente = $cliente->ID;
     }
 
     public function params()
     {
-        $this->listVendedor = Cliente::where('ATIVO', 'S')->where('TIPO', 'V')->get();
+        $vendedores = Funcionario::where('ATIVO', 'S')->where('TIPO', 'V')->get();
+
+        return $this->listVendedor = $vendedores;
+    }
+
+    public function searchCliente()
+    {
+        $cliente = Cliente::where('ID', $this->clientePedido)->get(['ID', 'NOME'])->first();
+
+        if (!$cliente) {
+            $this->clientePedido = '';
+
+            return $this->alert('error', 'Cliente não encontrado!', [
+                'position' => 'center',
+                'timer' => '3000',
+                'toast' => true,
+            ]);
+        }
+
+        $this->params();
+
+        $this->clientePedido = $cliente->NOME;
+
+        return $this->cliente = $cliente->ID;
     }
 
     public function save()
     {
-        dd($this->codCliente);
-
         $pedido = Pedido::create([
-            'CLIENTE' => $this->clientePedido,
+            'CLIENTE' => $this->cliente,
             'VENDEDOR' => $this->vendedor,
             'PAGAMENTO' => $this->pagamento,
             'STATUS' => 'ABERTO',
+            'OBSERVACAO' => strtoupper($this->observacao),
             'DATA_CADASTRO' => date('Y-m-d'),
         ]);
 
         if ($pedido->save()) {
-            $this->dispatch('close-modal-medium');
+            $this->dispatch('close-modal-small');
 
             return $this->alert('success', 'Pedido Criado!', [
                 'position' => 'center',

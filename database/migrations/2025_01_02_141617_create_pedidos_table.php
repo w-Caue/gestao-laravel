@@ -23,8 +23,8 @@ return new class extends Migration
             $table->timestamps();
 
             #foreign key tabela clientes
-            $table->foreign('CLIENTE')->references('id')->on('CLIENTES');
-            $table->foreign('VENDEDOR')->references('id')->on('CLIENTES');
+            $table->foreign('CLIENTE')->references('ID')->on('CLIENTES');
+            $table->foreign('VENDEDOR')->references('ID')->on('FUNCIONARIOS');
         });
     }
 

@@ -12,15 +12,6 @@
                 </x-card.icon-card>
             </a>
 
-            <a class="hover:shadow-lg" title="Serviços">
-                <x-card.icon-card title="Serviços" subtitle="">
-                    <div
-                        class="p-3 mr-4 text-purple-500 bg-purple-100 rounded-full dark:text-purple-100 dark:bg-purple-500">
-                        <x-icons.servicos class="size-6" />
-                    </div>
-                </x-card.icon-card>
-            </a>
-
         </div>
         <!--./Cards-->
     </div>

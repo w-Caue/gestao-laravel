@@ -60,6 +60,17 @@
             </a>
 
             <div class="border dark:border-gray-700"></div>
+
+            <a href="{{ route('admin.funcionarios.listagem') }}"
+                class="relative flex justify-between items-center space-x-2 p-2 cursor-pointer {{ request()->routeIs('admin.funcionarios.*') ? 'text-blue-500 border-l-2 border-blue-500 ' : 'text-gray-400 hover:text-blue-500' }}">
+                <div class="w-full flex flex-col justify-center items-center">
+                    <x-icons.funcionarios class="size-6"></x-icons.funcionarios>
+
+                    <h1>
+                        Funcionários
+                    </h1>
+                </div>
+            </a>
         </div>
     </div>
 </div>

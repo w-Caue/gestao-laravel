@@ -6,18 +6,13 @@
 
                 <div class="flex flex-col gap-3">
                     <div class="w-full">
-                        <div class="flex flex-col">
+                        <div class="flex flex-col w-full">
                             <x-inputs.label value="{{ 'Cliente' }}" />
 
-                            <div class="flex gap-1 items-end  w-full">
+                            <div class="flex gap-1 items-end w-96">
 
-                                @if ($clientePedido)
-                                    <x-input class="w-96 uppercase tracking-widest" value="{{ $clientePedido->NOME }}"
-                                        wire:keydown.enter='data()' placeholder="Pesquise pelo código" />
-                                @else
-                                    <x-input class="w-96 uppercase tracking-widest"
-                                        wire:keydown.enter='data()' placeholder="Pesquise pelo código" />
-                                @endif
+                                <x-input class="uppercase tracking-widest" wire:model="clientePedido"
+                                    wire:keydown.enter='searchCliente()' placeholder="Pesquise pelo código" />
 
                                 <x-buttons.primary x-on:click="$dispatch('open-large-modal', { name : 'clientes' })">
                                     <x-icons.search class="size-5" />
@@ -31,7 +26,8 @@
                         <x-inputs.select class="uppercase tracking-widest text-gray-400" wire:model="vendedor">
                             <option value="">Selecione aqui</option>
                             @foreach ($listVendedor as $vendedor)
-                                <option class="font-semibold text-gray-600" value="{{ $vendedor->ID }}">{{ $vendedor->NOME }}</option>
+                                <option class="font-semibold text-gray-600" value="{{ $vendedor->ID }}">
+                                    {{ $vendedor->NOME }}</option>
                             @endforeach
                         </x-inputs.select>
                     </div>
@@ -53,7 +49,7 @@
 
                     <div class="w-full">
                         <x-inputs.label value="{{ 'Observação' }}" />
-                        <x-textarea wire:model="observacao" resize-auto />
+                        <x-textarea class="uppercase tracking-widest" wire:model="observacao" resize-auto />
                     </div>
                 </div>
 

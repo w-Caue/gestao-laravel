@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Forms\Cliente;
+namespace App\Livewire\Forms\Funcionario;
 
-use App\Models\Cliente;
+use App\Models\Funcionario;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
-class ClienteForm extends Form
+class FuncionarioForm extends Form
 {
     public $codigo;
 
@@ -19,6 +19,8 @@ class ClienteForm extends Form
     #[Validate('min:12')]
     public $telefone;
 
+    public $tipo = 'V';
+
     public $dataCadastro;
 
     public $inativo;
@@ -30,31 +32,33 @@ class ClienteForm extends Form
     {
         // $this->validate();
 
-        $cliente = Cliente::create([
+        $funcionario = Funcionario::create([
             'NOME' => strtoupper($this->nome),
             'EMAIL' => strtoupper($this->email),
             'TELEFONE' => $this->telefone,
+            'TIPO' => $this->tipo,
             'DATA_CADASTRO' => date('Y-m-d'),
         ]);
 
-        $this->codigo = $cliente->id;
+        $this->codigo = $funcionario->id;
 
-        return $cliente;
+        return $funcionario;
     }
 
     public function show($codigo)
     {
-        $cliente = Cliente::where('ID', $codigo)->first();
+        $funcionario = Funcionario::where('ID', $codigo)->first();
 
-        $this->codigo = $cliente->ID;
-        $this->nome = $cliente->NOME;
-        $this->email = $cliente->EMAIL;
-        $this->telefone = $cliente->TELEFONE;
-        $this->dataCadastro = date('Y-m-d', strtotime($cliente->DATA_CADASTRO));
+        $this->codigo = $funcionario->ID;
+        $this->nome = $funcionario->NOME;
+        $this->email = $funcionario->EMAIL;
+        $this->telefone = $funcionario->TELEFONE;
+        $this->tipo = $funcionario->TIPO;
+        $this->dataCadastro = date('Y-m-d', strtotime($funcionario->DATA_CADASTRO));
 
         $inativo = false;
 
-        if ($cliente->ATIVO == 'N') {
+        if ($funcionario->ATIVO == 'N') {
             $inativo = true;
         }
 
@@ -71,30 +75,14 @@ class ClienteForm extends Form
             $inativo = 'N';
         }
 
-        $cliente = Cliente::where('ID', $this->codigo)->update([
+        $funcionario = Funcionario::where('ID', $this->codigo)->update([
             'NOME' => strtoupper($this->nome),
             'EMAIL' => strtoupper($this->email),
             'TELEFONE' => $this->telefone,
+            'TIPO' => $this->tipo,
             'ATIVO' => $inativo,
         ]);
 
-        return $cliente;
-    }
-
-    public function setFavorito($codigo)
-    {
-        $cliente = Cliente::where('ID', $codigo)->get('FAVORITO')->first();
-
-        $this->clienteFavorito = 'N';
-
-        if ($cliente->FAVORITO == 'N') {
-            $this->clienteFavorito = 'S';
-        }
-
-        $cliente = Cliente::where('ID', $codigo)->update([
-            'FAVORITO' => $this->clienteFavorito,
-        ]);
-
-        return $cliente;
+        return $funcionario;
     }
 }

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('CLIENTES', function (Blueprint $table) {
+        Schema::create('FUNCIONARIOS', function (Blueprint $table) {
             $table->id('ID');
             $table->string('NOME');
             $table->string('EMAIL')->unique()->nullable();
             $table->string('TELEFONE', 14)->nullable();
-            $table->enum('FAVORITO', ['S', 'N'])->default('N');
+            $table->enum('TIPO', ['V', 'E'])->default('V');
             $table->enum('ATIVO', ['S', 'N'])->default('S');
             $table->dateTime('DATA_CADASTRO');
             $table->timestamps();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('CLIENTES');
+        Schema::dropIfExists('FUNCIONARIOS');
     }
 };

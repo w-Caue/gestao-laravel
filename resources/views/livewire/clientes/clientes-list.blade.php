@@ -285,7 +285,7 @@
                             <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>
                         @enderror
 
-                        <div class="flex gap-1">
+                        {{-- <div class="flex gap-1">
                             <x-radio name="tipo" wire:model="form.tipo" value="C"/>
                             <x-inputs.label value="{{ 'Cliente' }}" />
                         </div>
@@ -293,7 +293,7 @@
                         <div class="flex gap-1">
                             <x-radio name="tipo" wire:model="form.tipo" value="V"/>
                             <x-inputs.label value="{{ 'Vendedor' }}" />
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="sm:w-72">

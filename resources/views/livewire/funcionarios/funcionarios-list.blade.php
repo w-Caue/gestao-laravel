@@ -1,15 +1,18 @@
 <div>
-    @livewire('pedidos.pedidos-cards')
+    <!-- Loading -->
+    @include('includes.loading')
+    <!-- ./Loading -->
+
     <div class="p-2 bg-white rounded-lg shadow-2xl dark:bg-gray-800">
 
-        <div class="relative w-full flex sm:flex-row flex-col justify-between gap-5">
+        <div class="relative w-full flex sm:flex-row flex-col items-center justify-between gap-5 px-2">
             <div class="flex items-end justify-between gap-5">
                 <div>
                     <span class="font-bold text-gray-500">Pesquise aqui</span>
                     <div class="flex items-end gap-1">
-                        <x-input class="sm:w-80 w-full uppercase tracking-widest" wire:model.defer="search"
-                            wire:keydown.enter='data()'
-                            placeholder="Pesquise o pedido pelo {{ str_replace('.', '>', $sortField) }}" />
+                        <x-input class="sm:w-80 uppercase tracking-widest" wire:model.defer="search"
+                            wire:keydown.enter='dados()'
+                            placeholder="Pesquise o funcionário pelo {{ str_replace('.', '>', $sortField) }}" />
 
                         <x-buttons.primary wire:click="dados()">
                             <x-icons.search class="size-5" />
@@ -86,19 +89,20 @@
                     </div>
                 </div>
 
-                <x-buttons.primary x-on:click="$dispatch('open-modal-small', { name : 'cadastro' })"
+                <x-buttons.primary x-on:click="$dispatch('open-modal', { name : 'cadastro' })"
                     class="flex items-center gap-1">
                     <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path
-                            d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z">
+                            d="M14 14.252V22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM18 17V14H20V17H23V19H20V22H18V19H15V17H18Z">
                         </path>
                     </svg>
                     <span>Novo</span>
                 </x-buttons.primary>
             </div>
+
         </div>
 
-        <div class="w-full overflow-hidden mt-7 rounded-lg shadow-xs hidden lg:block">
+        <div class="w-full overflow-hidden mt-7 px-2 rounded-lg shadow-xs hidden lg:block">
             <div class="w-full overflow-x-auto">
                 <table class="w-full">
                     <thead>
@@ -124,16 +128,16 @@
                             <th class="px-4 py-3">
                                 <div class="flex justify-center">
                                     <div class="flex justify-center items-center cursor-pointer"
-                                        wire:click="sortBy('CLIENTE')" x-on:mouseover="tooltip = 'cliente'"
+                                        wire:click="sortBy('NOME')" x-on:mouseover="tooltip = 'nome'"
                                         x-on:mouseleave="tooltip = 'nenhum'">
                                         <button
-                                            class="text-xs font-medium leading-4 tracking-wider uppercase">Cliente</button>
-                                        @include('includes.icon-filter', ['field' => 'CLIENTE'])
+                                            class="text-xs font-medium leading-4 tracking-wider uppercase">Nome</button>
+                                        @include('includes.icon-filter', ['field' => 'NOME'])
                                     </div>
 
-                                    <div x-cloak x-show="tooltip === 'cliente'" x-transition x-transition.duration.300ms
+                                    <div x-cloak x-show="tooltip === 'nome'" x-transition x-transition.duration.300ms
                                         class="absolute z-10 p-2 mt-6 text-xs font-bold bg-gray-100 rounded-md dark:bg-gray-700">
-                                        <p>Ordenar pelo o Cliente</p>
+                                        <p>Ordenar pelo o Nome</p>
                                     </div>
                                 </div>
                             </th>
@@ -141,7 +145,7 @@
                             <th class="px-4 py-3">
                                 <div class="flex justify-center items-center cursor-pointer">
                                     <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                        Observação
+                                        telefone
                                     </button>
                                 </div>
                             </th>
@@ -149,7 +153,7 @@
                             <th class="px-4 py-3">
                                 <div class="flex justify-center items-center cursor-pointer">
                                     <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                        Vendedor
+                                        Função
                                     </button>
                                 </div>
                             </th>
@@ -157,23 +161,7 @@
                             <th class="px-4 py-3">
                                 <div class="flex justify-center items-center cursor-pointer">
                                     <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                        Data
-                                    </button>
-                                </div>
-                            </th>
-
-                            <th class="px-4 py-3">
-                                <div class="flex justify-center items-center cursor-pointer">
-                                    <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                        Pagamento
-                                    </button>
-                                </div>
-                            </th>
-
-                            <th class="px-4 py-3">
-                                <div class="flex justify-center items-center cursor-pointer">
-                                    <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                        Valor Total
+                                        Data Cadastro
                                     </button>
                                 </div>
                             </th>
@@ -189,39 +177,33 @@
                     </thead>
 
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        @foreach ($pedidos as $pedido)
-                            <tr wire:key="{{ $pedido->ID }}"
-                                class="font-bold text-sm text-gray-700 dark:text-gray-300">
+                        @foreach ($funcionarios as $funcionario)
+                            <tr wire:key="{{ $funcionario->ID }}"
+                                class="font-bold text-sm {{ $funcionario->ATIVO == 'N' ? 'text-purple-700' : 'text-gray-700 dark:text-gray-300' }}">
                                 <td class="py-3 text-center">
-                                    #{{ $pedido->ID }}
+                                    #{{ $funcionario->ID }}
                                 </td>
 
                                 <td class="py-3 px-28 text-center">
-                                    {{ $pedido->CLIENTE_NOME }}
-                                </td>
-
-                                <td class="py-3 text-center text-xs">
-                                    {{ $pedido->OBSERVACAO }}
-                                </td>
-
-                                <td class="py-3 px-28 text-center">
-                                    {{ $pedido->VENDEDOR_NOME }}
+                                    {{ $funcionario->NOME }}
                                 </td>
 
                                 <td class="py-3 pr-8 text-xs text-center">
-                                    {{ date('d/m/Y', strtotime($pedido->DATA_CADASTRO)) }}
+                                    {{ $funcionario->TELEFONE }}
+                                </td>
+
+                                <td class="py-3 pr-8 text-xs text-center uppercase">
+                                    {{ $funcionario->TIPO == 'V' ? 'Vendedor' : 'Entregador' }}
                                 </td>
 
                                 <td class="py-3 text-center">
-                                    {{ $pedido->PAGAMENTO == 'D' ? 'DINHEIRO' : '' }}
-                                </td>
-
-                                <td class="py-3 text-center">
-                                    {{ number_format($pedido->TOTAL, 2, ',') }}
+                                    {{-- {{ date('d/m/Y', strtotime($funcionarios->DATA_CADASTRO)) }} --}}
                                 </td>
 
                                 <td class="py-3 flex justify-center">
-                                    <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                                    <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+                                        {{-- wire:click="$dispatchTo('clientes.clientes-register','consulta', { codigo: {{ $cliente->ID }}})" --}} x-data
+                                        x-on:click="$dispatch('open-large-modal', { name : 'cadastroCompleto' })">
                                         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="currentColor">
                                             <path
@@ -237,32 +219,27 @@
             </div>
         </div>
 
-        <div class="w-full overflow-y-auto p-1 block lg:hidden space-y-6 mt-3">
-            @foreach ($pedidos as $pedido)
-                <div wire:key="{{ $pedido->ID }}"
+        <div class="w-full overflow-y-auto p-4 block lg:hidden space-y-6">
+            @foreach ($funcionarios as $funcionario)
+                <div wire:key="{{ $funcionario->ID }}" {{-- wire:click="$dispatchTo('clientes.clientes-register','consulta', { codigo: {{ $cliente->ID }}})" --}} x-data
+                    x-on:click="$dispatch('open-large-modal', { name : 'cadastroCompleto' })"
                     class="w-full p-2 rounded-lg space-y-2 border-2 shadow-lg hover:scale-105 dark:hover:shadow-gray-700 transition-all dark:border-gray-700 hover:cursor-pointer">
                     <div class="flex justify-between items-center">
-                        <span class="font-bold">#{{ $pedido->ID }}</span>
+                        <span class="font-bold">#{{ $funcionario->ID }}</span>
 
                         <h1 class="font-bold text-xs uppercase tracking-widest">
-                            {{ date('d/m/Y', strtotime($pedido->DATA_CADASTRO)) }}
+                            {{-- {{ date('d/m/Y', strtotime($funcionario->DATA_CADASTRO)) }} --}}
                         </h1>
+
                     </div>
 
                     <span class="font-bold text-sm tracking-widest uppercase text-blue-500">
-                        {{ $pedido->CLIENTE_NOME }}
+                        {{ $funcionario->NOME }}
+
                     </span>
 
-                    <h1 class="font-bold text-sm tracking-widest uppercase">
-                        {{ $pedido->OBSERVACAO }}
-                    </h1>
-
                     <div class="flex justify-between items-center flex-wrap text-sm tracking-wider font-semibold">
-                        pagamento: {{ $pedido->PAGAMENTO == 'D' ? 'DINHEIRO' : '' }}
-                    </div>
-
-                    <div class="flex justify-between items-center flex-wrap text-sm tracking-wider font-semibold">
-                        total:  {{ number_format($pedido->TOTAL, 2, ',') }}
+                        Telefone: {{ $funcionario->TELEFONE }}
                     </div>
                 </div>
             @endforeach
@@ -270,7 +247,66 @@
 
     </div>
 
-    @livewire('clientes.clientes-pesquisa')
+    <x-modal.modal-medium name="cadastro" title="Cadastrar" subtitle="Funcionário">
+        @slot('body')
+            <div class="space-y-6">
 
-    @livewire('pedidos.pedido-novo')
+                <div class="flex flex-wrap gap-3">
+
+                    <div class="flex gap-4 items-center">
+                        <div class="sm:w-72">
+                            <x-inputs.label value="{{ 'Nome*' }}" />
+                            <x-input class="uppercase tracking-wide" placeholder="Insira o nome aqui"
+                                wire:model="form.nome" />
+                        </div>
+                        @error('nome')
+                            <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>
+                        @enderror
+
+                        <div class="flex flex-wrap gap-2">
+                            <div class="flex gap-1">
+                                <x-radio name="tipo" wire:model="form.tipo" value="V" />
+                                <x-inputs.label value="{{ 'Vendedor' }}" />
+                            </div>
+
+                            <div class="flex gap-1">
+                                <x-radio name="tipo" wire:model="form.tipo" value="E" />
+                                <x-inputs.label value="{{ 'Entregador' }}" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sm:w-72">
+                        <x-inputs.label value="{{ 'Email' }}" />
+                        <x-input class="uppercase tracking-wide" placeholder="Insira o email aqui"
+                            wire:model="form.email" />
+                    </div>
+
+                    @error('email')
+                        <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>
+                    @enderror
+
+                    <div class="w-44">
+                        <x-inputs.label value="{{ 'Telefone' }}" />
+                        <x-input class="uppercase tracking-wide" placeholder="Insira o telefone"
+                            wire:model="form.telefone"
+                            x-mask:dynamic="
+                         $input.startsWith('11') || $input.startsWith('14')
+                             ? '9 9999 9999' : '99 9 9999 9999'
+                     " />
+                    </div>
+                    @error('telefone')
+                        <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="flex justify-end">
+                    <x-buttons.primary wire:click="save()">
+                        salvar
+                    </x-buttons.primary>
+                </div>
+
+            </div>
+        @endslot
+    </x-modal.modal-medium>
 </div>

@@ -39,8 +39,6 @@ class ClientesPesquisa extends Component
         $clientes = Cliente::select([
             'CLIENTES.*'
         ])
-            ->where('TIPO', 'C')
-
             ->when(!empty($this->search), function ($query) {
                 $search = strtoupper($this->search);
                 $search  = str_replace(" ", "%", $search);
