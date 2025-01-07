@@ -3,6 +3,7 @@
 namespace App\Livewire\Pedidos;
 
 use App\Models\Pedido;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class PedidosList extends Component
@@ -28,6 +29,7 @@ class PedidosList extends Component
         return $pedidos;
     }
 
+    #[Layout('layouts.app')]
     public function render()
     {
         return view('livewire.pedidos.pedidos-list', ['pedidos' => $this->dados()]);

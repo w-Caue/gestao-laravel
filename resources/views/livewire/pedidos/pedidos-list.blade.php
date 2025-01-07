@@ -221,7 +221,7 @@
                                 </td>
 
                                 <td class="py-3 flex justify-center">
-                                    <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                                    <button wire:click="$dispatchTo('pedidos.pedidos-register','consulta', { codigo: {{ $pedido->ID }}})" x-on:click="$dispatch('open-exlarge-modal', { name : 'pedidoCompleto' })" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
                                         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="currentColor">
                                             <path
@@ -239,7 +239,7 @@
 
         <div class="w-full overflow-y-auto p-1 block lg:hidden space-y-6 mt-3">
             @foreach ($pedidos as $pedido)
-                <div wire:key="{{ $pedido->ID }}"
+                <div wire:click="$dispatchTo('pedidos.pedidos-register','consulta', { codigo: {{ $pedido->ID }}})" wire:key="{{ $pedido->ID }}" x-on:click="$dispatch('open-exlarge-modal', { name : 'pedidoCompleto' })"
                     class="w-full p-2 rounded-lg space-y-2 border-2 shadow-lg hover:scale-105 dark:hover:shadow-gray-700 transition-all dark:border-gray-700 hover:cursor-pointer">
                     <div class="flex justify-between items-center">
                         <span class="font-bold">#{{ $pedido->ID }}</span>
@@ -262,7 +262,7 @@
                     </div>
 
                     <div class="flex justify-between items-center flex-wrap text-sm tracking-wider font-semibold">
-                        total:  {{ number_format($pedido->TOTAL, 2, ',') }}
+                        total: {{ number_format($pedido->TOTAL, 2, ',') }}
                     </div>
                 </div>
             @endforeach
@@ -273,4 +273,6 @@
     @livewire('clientes.clientes-pesquisa')
 
     @livewire('pedidos.pedido-novo')
+
+    @livewire('pedidos.pedidos-register')
 </div>

@@ -1,6 +1,4 @@
 <div class="">
-
-
     <x-modal.modal-large name="cadastroCompleto" title="Cadastro" subtitle="Completo">
         @slot('body')
             <div x-data="{ cliente: 1 }">
@@ -100,5 +98,4 @@
             </div>
         @endslot
     </x-modal.modal-large>
-
 </div>
