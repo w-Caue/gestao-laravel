@@ -8,6 +8,7 @@ use App\Livewire\Dashboard;
 use App\Livewire\Funcionarios\FuncionariosList;
 use App\Livewire\Pedidos\PedidosList;
 use App\Livewire\Pedidos\PedidosRegister;
+use App\Livewire\Produtos\ProdutosList;
 use App\Livewire\Servicos\ServicosList;
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,11 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
 
     Route::prefix('/pedidos')->name('pedidos.')->group(function () {
         Route::get('/', PedidosList::class)
+            ->name('listagem');
+    });
+
+    Route::prefix('/produtos')->name('produtos.')->group(function () {
+        Route::get('/', ProdutosList::class)
             ->name('listagem');
     });
 
