@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-                <x-buttons.primary x-on:click="$dispatch('open-modal-small', { name : 'cadastro' })"
+                <x-buttons.primary x-on:click="$dispatch('open-large-modal', { name : 'cadastro' })"
                     class="flex items-center gap-1">
                     <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path
@@ -273,4 +273,109 @@
         </div>
 
     </div>
+
+    <x-modal.modal-large name="cadastro" title="Cadastrar" subtitle="Produto">
+        @slot('body')
+            <div class="space-y-6">
+
+                <div class="grid grid-cols-3 gap-1">
+                    <div class="col-span-2 space-y-1">
+                        <div class="">
+                            <x-inputs.label value="{{ 'Nome*' }}" />
+                            <x-input class="uppercase tracking-widest" wire:model="form.nome" />
+                        </div>
+                        @error('nome')
+                            <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>
+                        @enderror
+
+                        <div class="">
+                            <x-inputs.label value="{{ 'Descrição*' }}" />
+                            <x-input class="uppercase tracking-widest" wire:model="form.descricao" />
+                        </div>
+                        @error('nome')
+                            <span class="text-sm font-semibold text-red-600 error">{{ $message }}</span>
+                        @enderror
+
+                        <div class="w-60">
+                            <x-inputs.label value="{{ 'Tamanhos:' }}" />
+                            <x-select.styled class="uppercase tracking-widest" wire:model="form.tamanhos" :placeholders="[
+                                'default' => 'SELECIONE AQUI',
+                                'search' => 'PESQUISE',
+                                'empty' => 'SEM INFORMAÇÃO',
+                            ]"
+                                :options="[
+                                    ['label' => 'PP', 'value' => 'PP'],
+                                    ['label' => 'P', 'value' => 'P'],
+                                    ['label' => 'M', 'value' => 'M'],
+                                    ['label' => 'G', 'value' => 'G'],
+                                    ['label' => 'GG', 'value' => 'GG'],
+                                ]" select="label:label|value:value" searchable multiple />
+                        </div>
+
+                        <div class="mt-2 space-y-2">
+                            <span class="text-sm font-semibold uppercase tracking-widest text-gray-500">Precificação</span>
+
+                            <div class="flex gap-2">
+                                <div class="">
+                                    <x-inputs.label value="{{ 'Varejo' }}" />
+                                    <x-input type="number" class="uppercase tracking-widest" wire:model="form.preco1" />
+                                </div>
+
+                                <div class="">
+                                    <x-inputs.label value="{{ 'Atacado' }}" />
+                                    <x-input type="number" class="uppercase tracking-widest" wire:model="form.preco2" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-col items-center space-y-6">
+                            <x-inputs.label value="{{ 'Foto' }}" />
+                            <div class="shrink-0">
+                                <img id='preview_img' wire:model="form.imagem" class="h-24 w-24 object-cover rounded-md"
+                                    src="{{ asset('img/foto.png') }}" alt="Current profile photo" />
+                            </div>
+                            <label class="block">
+                                <span class="sr-only">Choose profile photo</span>
+                                <input type="file" onchange="loadFile(event)"
+                                    class="block w-44 text-sm text-slate-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold file:uppercase 
+                                file:bg-violet-50 file:text-violet-700
+                                hover:file:bg-violet-100
+                              " />
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flex justify-end">
+                    <x-buttons.primary wire:click="save()">
+                        salvar
+                    </x-buttons.primary>
+                </div>
+
+            </div>
+        @endslot
+    </x-modal.modal-large>
 </div>
+
+<script>
+    var loadFile = function(event) {
+
+        var input = event.target;
+        var file = input.files[0];
+        var type = file.type;
+
+        var output = document.getElementById('preview_img');
+
+
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+</script>
