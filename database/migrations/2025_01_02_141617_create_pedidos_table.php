@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('CLIENTE');
             $table->string('OBSERVACAO')->nullable();
             $table->foreignId('VENDEDOR');
-            $table->string('PAGAMENTO', 1);
+            $table->string('PAGAMENTO', 3);
             $table->string('STATUS', 15);
             $table->double('TOTAL', 10, 2)->nullable();
             $table->dateTime('DATA_CADASTRO');

@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="flex justify-end">
-                        <x-button text="Adicionar Item" />
+                        <x-button text="Adicionar Item"  x-on:click="$dispatch('open-large-modal', { name : 'produtos' })"/>
                     </div>
 
                     <div class="w-full overflow-y-auto my-3 block h-44">

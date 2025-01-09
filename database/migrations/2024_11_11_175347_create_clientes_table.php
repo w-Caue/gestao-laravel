@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('CLIENTES', function (Blueprint $table) {
             $table->id('ID');
-            $table->string('NOME');
+            $table->string('NOME', 150);
             $table->string('EMAIL')->unique()->nullable();
             $table->string('TELEFONE', 14)->nullable();
             $table->enum('FAVORITO', ['S', 'N'])->default('N');

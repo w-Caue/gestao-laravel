@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('PRODUTOS', function (Blueprint $table) {
-            $table->id();
+            $table->id('ID');
             $table->string('NOME', 100);
             $table->text('DESCRICAO', 200);
-            $table->string('TAMANHO');
+            $table->string('TAMANHO', 50);
             $table->double('PRECO1', 10, 2);
             $table->double('PRECO2', 10, 2);
-            $table->integer('ESTOQUE');
+            $table->integer('ESTOQUE')->nullable();
             $table->enum('ATIVO', ['S', 'N'])->default('S');
             $table->dateTime('DATA_CADASTRO');
             $table->timestamps();

@@ -9,4 +9,9 @@ class Imagem extends Model
 {
     use HasFactory;
     protected $table = 'IMAGENS';
+
+    protected $fillable = [
+        'NOME',
+        'PATH',
+    ];
 }

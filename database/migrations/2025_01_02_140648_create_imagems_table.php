@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('IMAGENS', function (Blueprint $table) {
             $table->id();
             $table->foreignId('PRODUTO_ID'); 
-            $table->string('IMAGEM');
+            $table->string('NOME');
+            $table->string('PATH');
             $table->timestamps();
 
              #foreign key tabela produtos

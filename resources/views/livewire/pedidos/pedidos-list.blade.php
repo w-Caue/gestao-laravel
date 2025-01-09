@@ -271,6 +271,8 @@
     </div>
 
     @livewire('clientes.clientes-pesquisa')
+    
+    @livewire('produtos.produtos-pesquisa')
 
     @livewire('pedidos.pedido-novo')
 

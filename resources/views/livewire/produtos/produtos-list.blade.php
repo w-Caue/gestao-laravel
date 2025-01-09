@@ -188,41 +188,39 @@
                     </thead>
 
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        {{-- @foreach ($pedidos as $pedido)
-                            <tr wire:key="{{ $pedido->ID }}"
+                        @foreach ($produtos as $produto)
+                            <tr wire:key="{{ $produto->ID }}"
                                 class="font-bold text-sm text-gray-700 dark:text-gray-300">
                                 <td class="py-3 text-center">
-                                    #{{ $pedido->ID }}
+                                    #{{ $produto->ID }}
                                 </td>
 
                                 <td class="py-3 px-28 text-center">
-                                    {{ $pedido->CLIENTE_NOME }}
+                                    {{ $produto->NOME }}
                                 </td>
 
                                 <td class="py-3 text-center text-xs">
-                                    {{ $pedido->OBSERVACAO }}
+                                    {{ $produto->DESCRICAO }}
                                 </td>
 
                                 <td class="py-3 px-28 text-center">
-                                    {{ $pedido->VENDEDOR_NOME }}
+                                    {{ $produto->TAMANHO }}
                                 </td>
 
-                                <td class="py-3 pr-8 text-xs text-center">
-                                    {{ date('d/m/Y', strtotime($pedido->DATA_CADASTRO)) }}
+                                <td class="py-3 px-28 text-center">
+                                    {{ $produto->ESTOQUE }}
                                 </td>
 
-                                <td class="py-3 text-center">
-                                    {{ $pedido->PAGAMENTO == 'D' ? 'DINHEIRO' : '' }}
+                                <td class="py-3 px-28 text-center">
+                                    R$ {{ number_format($produto->PRECO1, 2, ',') }}
                                 </td>
 
-                                <td class="py-3 text-center">
-                                    {{ number_format($pedido->TOTAL, 2, ',') }}
+                                <td class="py-3 px-28 text-center">
+                                    R$ {{ number_format($produto->PRECO2, 2, ',') }}
                                 </td>
 
                                 <td class="py-3 flex justify-center">
-                                    <button
-                                        wire:click="$dispatchTo('pedidos.pedidos-register','consulta', { codigo: {{ $pedido->ID }}})"
-                                        x-on:click="$dispatch('open-exlarge-modal', { name : 'pedidoCompleto' })"
+                                    <button wire:click="$dispatchTo('produtos.produtos-register','consulta', { codigo: {{ $produto->ID }}})" x-on:click="$dispatch('open-exlarge-modal', { name : 'cadastroCompleto' })"
                                         class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
                                         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="currentColor">
@@ -233,43 +231,44 @@
                                     </button>
                                 </td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
 
         <div class="w-full overflow-y-auto p-1 block lg:hidden space-y-6 mt-3">
-            {{-- @foreach ($pedidos as $pedido)
-                <div wire:click="$dispatchTo('pedidos.pedidos-register','consulta', { codigo: {{ $pedido->ID }}})"
-                    wire:key="{{ $pedido->ID }}"
+            @foreach ($produtos as $produto)
+                <div wire:click="$dispatchTo('produtos.produtos-register','consulta', { codigo: {{ $produto->ID }}})"
+                    x-on:click="$dispatch('open-exlarge-modal', { name : 'cadastroCompleto' })"
+                    wire:key="{{ $produto->ID }}"
                     x-on:click="$dispatch('open-exlarge-modal', { name : 'pedidoCompleto' })"
                     class="w-full p-2 rounded-lg space-y-2 border-2 shadow-lg hover:scale-105 dark:hover:shadow-gray-700 transition-all dark:border-gray-700 hover:cursor-pointer">
                     <div class="flex justify-between items-center">
-                        <span class="font-bold">#{{ $pedido->ID }}</span>
+                        <span class="font-bold">#{{ $produto->ID }}</span>
 
                         <h1 class="font-bold text-xs uppercase tracking-widest">
-                            {{ date('d/m/Y', strtotime($pedido->DATA_CADASTRO)) }}
+                            {{ date('d/m/Y', strtotime($produto->DATA_CADASTRO)) }}
                         </h1>
                     </div>
 
                     <span class="font-bold text-sm tracking-widest uppercase text-blue-500">
-                        {{ $pedido->CLIENTE_NOME }}
+                        {{ $produto->CLIENTE_NOME }}
                     </span>
 
                     <h1 class="font-bold text-sm tracking-widest uppercase">
-                        {{ $pedido->OBSERVACAO }}
+                        {{ $produto->OBSERVACAO }}
                     </h1>
 
                     <div class="flex justify-between items-center flex-wrap text-sm tracking-wider font-semibold">
-                        pagamento: {{ $pedido->PAGAMENTO == 'D' ? 'DINHEIRO' : '' }}
+                        pagamento: {{ $produto->PAGAMENTO == 'D' ? 'DINHEIRO' : '' }}
                     </div>
 
                     <div class="flex justify-between items-center flex-wrap text-sm tracking-wider font-semibold">
-                        total: {{ number_format($pedido->TOTAL, 2, ',') }}
+                        total: {{ number_format($produto->TOTAL, 2, ',') }}
                     </div>
                 </div>
-            @endforeach --}}
+            @endforeach
         </div>
 
     </div>
@@ -278,8 +277,8 @@
         @slot('body')
             <div class="space-y-6">
 
-                <div class="grid grid-cols-3 gap-1">
-                    <div class="col-span-2 space-y-1">
+                <div class="grid sm:grid-cols-3 gap-1">
+                    <div class="sm:col-span-2 space-y-1">
                         <div class="">
                             <x-inputs.label value="{{ 'Nome*' }}" />
                             <x-input class="uppercase tracking-widest" wire:model="form.nome" />
@@ -298,12 +297,12 @@
 
                         <div class="w-60">
                             <x-inputs.label value="{{ 'Tamanhos:' }}" />
-                            <x-select.styled class="uppercase tracking-widest" wire:model="form.tamanhos" :placeholders="[
-                                'default' => 'SELECIONE AQUI',
-                                'search' => 'PESQUISE',
-                                'empty' => 'SEM INFORMAÇÃO',
-                            ]"
-                                :options="[
+                            <x-select.styled class="uppercase tracking-widest" wire:model="form.tamanhos"
+                                :placeholders="[
+                                    'default' => 'SELECIONE AQUI',
+                                    'search' => 'PESQUISE',
+                                    'empty' => 'SEM INFORMAÇÃO',
+                                ]" :options="[
                                     ['label' => 'PP', 'value' => 'PP'],
                                     ['label' => 'P', 'value' => 'P'],
                                     ['label' => 'M', 'value' => 'M'],
@@ -316,24 +315,26 @@
                             <span class="text-sm font-semibold uppercase tracking-widest text-gray-500">Precificação</span>
 
                             <div class="flex gap-2">
-                                <div class="">
+                                <div class="w-32">
                                     <x-inputs.label value="{{ 'Varejo' }}" />
-                                    <x-input type="number" class="uppercase tracking-widest" wire:model="form.preco1" />
+                                    <x-input class="uppercase tracking-widest" wire:model="form.preco1"
+                                        x-mask:dynamic="$money($input)" />
                                 </div>
 
-                                <div class="">
+                                <div class="w-32">
                                     <x-inputs.label value="{{ 'Atacado' }}" />
-                                    <x-input type="number" class="uppercase tracking-widest" wire:model="form.preco2" />
+                                    <x-input class="uppercase tracking-widest" wire:model="form.preco2"
+                                        x-mask:dynamic="$money($input)" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <div class="flex flex-col items-center space-y-6">
+                        <form enctype="multipart/form-data" class="flex flex-col items-center space-y-6">
                             <x-inputs.label value="{{ 'Foto' }}" />
                             <div class="shrink-0">
-                                <img id='preview_img' wire:model="form.imagem" class="h-24 w-24 object-cover rounded-md"
+                                <img id='preview_img' wire:model="photo" class="h-24 w-24 object-cover rounded-md"
                                     src="{{ asset('img/foto.png') }}" alt="Current profile photo" />
                             </div>
                             <label class="block">
@@ -347,7 +348,7 @@
                                 hover:file:bg-violet-100
                               " />
                             </label>
-                        </div>
+                        </form>
                     </div>
 
                 </div>
@@ -361,6 +362,8 @@
             </div>
         @endslot
     </x-modal.modal-large>
+
+    @livewire('produtos.produtos-register')
 </div>
 
 <script>
