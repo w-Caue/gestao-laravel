@@ -9,7 +9,7 @@
         <div x-on:click ="large = false" class="fixed">
         </div>
         <div
-            class="w-full px-4 py-4 overflow-hidden dark:text-gray-400 bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-4xl">
+            class="w-full px-4 py-4 overflow-hidden dark:text-gray-400 bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-6xl">
             <div class="flex justify-between items-start mx-1 mb-5 py-2">
 
                 <div class="border-b-2 dark:border-gray-700">

@@ -1,4 +1,4 @@
-<div>
+<div x-data="initApp()">
     <x-modal.modal-extra-large name="pedidoCompleto" title="Pedido" subtitle="Completo">
         @slot('body')
             <div class="grid sm:grid-cols-5 gap-5  overflow-y-auto h-1/2">
@@ -21,28 +21,29 @@
                         <div class="flex gap-2 mt-3">
                             <div>
                                 <x-inputs.label value="{{ 'Data' }}" />
-                                <x-date wire:model="form.dataCriacao" format="DD/MM/YYYY" class="uppercase tracking-widest" />
+                                <x-date wire:model="form.dataCriacao" format="DD/MM/YYYY"
+                                    class="uppercase tracking-widest" />
                             </div>
 
                             <div>
                                 <x-inputs.label value="{{ 'Pagamento' }}" />
-                                <x-select.styled wire:model="form.pagamento" class="uppercase tracking-widest" :placeholders="[
-                                    'default' => 'SELECIONE AQUI',
-                                    'search' => 'PESQUISE O PAGAMENTO',
-                                    'empty' => 'SEM INFORMAÇÃO',
-                                ]" :options="[
-                                    ['label' => 'DINHEIRO', 'value' => 'D'],
-                                    ['label' => 'PIX', 'value' => 'P'],
-                                    ['label' => 'CARTÃO DE CREDITO', 'value' => 'CC'],
-                                    ['label' => 'CARTÃO DE DEBITO', 'value' => 'CD'],
-                                ]"
-                                    select="label:label|value:value" searchable />
+                                <x-select.styled wire:model="form.pagamento" class="uppercase tracking-widest"
+                                    :placeholders="[
+                                        'default' => 'SELECIONE AQUI',
+                                        'search' => 'PESQUISE O PAGAMENTO',
+                                        'empty' => 'SEM INFORMAÇÃO',
+                                    ]" :options="[
+                                        ['label' => 'DINHEIRO', 'value' => 'D'],
+                                        ['label' => 'PIX', 'value' => 'P'],
+                                        ['label' => 'CARTÃO DE CREDITO', 'value' => 'CC'],
+                                        ['label' => 'CARTÃO DE DEBITO', 'value' => 'CD'],
+                                    ]" select="label:label|value:value" searchable />
                             </div>
                         </div>
                     </div>
 
                     <div class="flex justify-end">
-                        <x-button text="Adicionar Item"  x-on:click="$dispatch('open-large-modal', { name : 'produtos' })"/>
+                        <x-button text="Adicionar Item" x-on:click="$dispatch('open-large-modal', { name : 'produtos' })" />
                     </div>
 
                     <div class="w-full overflow-y-auto my-3 block h-44">
@@ -50,33 +51,59 @@
                         <span class="text-sm font-semibold uppercase tracking-widest text-gray-500">Itens</span>
 
                         {{-- @foreach ($produtos as $produto) --}}
-                        <div class="w-full p-2 font-semibold space-y-2 transition-all">
-                            <div class="flex gap-3">
+                        <div wire:key="" class="w-full p-1 font-semibold space-y-2 transition-all border rounded-md">
+                            <div class="flex gap-6">
 
-                                <div class="relative flex content-center overflow-hidden rounded justify-items-center">
-                                    {{-- @livewire('produtos.produtos.foto-produto', ['codSeqProduto' => $produto->COD_SEQ], key($produto->COD_SEQ)) --}}
-                                    foto
+                                <div
+                                    class="relative flex content-center overflow-hidden rounded justify-items-center sm:w-20 w-20">
+                                    @livewire('produtos.produto-foto')
                                 </div>
 
-                                <div class="flex flex-col gap-1">
-                                    <span class="font-bold text-xs tracking-widest uppercase">
-                                        Nome prod
-                                    </span>
-
-                                    <div class="">
-                                        <span class="text-xs tracking-widest uppercase">
-                                            Marca
+                                <div class="flex justify-between w-full gap-1">
+                                    <div>
+                                        <span class="font-bold text-sm tracking-widest uppercase">
+                                            nnnn
                                         </span>
+
+                                        <div class="">
+                                            <span class="text-xs tracking-widest uppercase">
+                                                dddd
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    <div class="flex items-center gap-2 text-center text-sm tracking-wider">
-                                        <span>Preço:</span>
-                                        R$ 00,00
-                                    </div>
+                                    <div class="m-4">
+                                        <div class="flex items-center gap-2 text-center text-sm tracking-wider">
+                                            R$
+                                        </div>
 
-                                    <div class="flex items-center gap-2 text-center text-sm tracking-wider">
-                                        <span>Estoque</span>
+                                        <div>
+                                            <div class="flex items-center gap-1">
+                                                <button x-on:click="remove()"
+                                                    class="text-white bg-red-500 p-1 rounded-full transition-all hover:scale-95">
+                                                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M19 11H5V13H19V11Z"></path>
+                                                    </svg>
+                                                </button>
 
+                                                <div class="w-20">
+                                                    <x-input class="text-center" x-model.number="item.qtd"
+                                                        wire:model="quantidade"
+                                                        x-mask:dynamic="$input.startsWith('37')
+                                                            ? '999999999' : '999999999'
+                                                    " />
+                                                </div>
+
+                                                <button x-on:click="add()"
+                                                    class="text-white bg-blue-500 p-1 rounded-full transition-all hover:scale-95">
+                                                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -126,4 +153,24 @@
             </div>
         @endslot
     </x-modal.modal-extra-large>
+
+    <script>
+        function initApp() {
+            const app = {
+                item: {
+                    qtd: 0,
+                },
+                add() {
+                    this.item.qtd++;
+                },
+                remove() {
+                    this.item.qtd--;
+                    if (this.item.qtd < 0) {
+                        this.item.qtd = 0;
+                    }
+                },
+            };
+            return app;
+        }
+    </script>
 </div>

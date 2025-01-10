@@ -183,7 +183,8 @@
                         class="w-full p-1 font-semibold space-y-2 transition-all border rounded-md">
                         <div class="flex gap-6">
 
-                            <div class="relative flex content-center overflow-hidden rounded justify-items-center sm:w-32 w-20">
+                            <div
+                                class="relative flex content-center overflow-hidden rounded justify-items-center sm:w-20 w-20">
                                 @livewire('produtos.produto-foto')
                             </div>
 
@@ -197,20 +198,17 @@
                                         {{ $produto->DESCRICAO }}
                                     </span>
                                 </div>
-
-                                <span class="text-xs tracking-widest uppercase">
-                                    {{ $produto->TAMANHO }}
-                                </span>
-
+                                
                                 <div class="flex items-center gap-2 text-center text-sm tracking-wider">
                                     <span>Preço:</span>
                                     R$ {{ number_format($produto->PRECO1, 2, ',') }}
                                 </div>
+                                {{-- 
 
                                 <div class="flex items-center gap-2 text-center text-sm tracking-wider">
                                     <span>Estoque</span>
                                     {{ $produto->ESTOQUE }}
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
