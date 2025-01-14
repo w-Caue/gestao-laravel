@@ -14,7 +14,7 @@ class PedidosRegister extends Component
         'consulta' => 'consulta',
     ];
 
-    public function consulta($codigo)
+    public function mount($codigo)
     {
         $this->form->show($codigo);
     }

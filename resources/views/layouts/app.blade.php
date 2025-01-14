@@ -18,7 +18,7 @@
 
     <style>
         body {
-            background-image: url("../img/comercio.png");
+            /* background-image: url("../img/comercio.png"); */
             font-family: "Nunito", sans-serif;
             /* Nunito */
         }
@@ -35,7 +35,7 @@
     @livewireStyles
 </head>
 
-<body class="">
+<body class="bg-zinc-200 dark:bg-gray-900">
     <div class="flex h-screen">
 
         @include('layouts.sidebar')
@@ -52,6 +52,8 @@
     </div>
 
     @livewireScripts
+
+    <script src=" {{ asset('js/main.js') }}"></script>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

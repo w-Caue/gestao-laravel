@@ -1,5 +1,5 @@
 <div>
-    <x-modal.modal-large name="produtos" title="Pesquisa de" subtitle="produtos" z-index="70">
+    <x-modal.modal-large name="produtosPesquisa" title="Pesquisa de" subtitle="produtos">
         @slot('body')
             @slot('icone')
                 <x-icons.produtos class="size-10 mr-2 p-2"></x-icons.produtos>
@@ -56,131 +56,11 @@
                 </div>
             </div>
 
-            {{-- <div class="w-full overflow-hidden mt-7 rounded-lg shadow-xs hidden lg:block">
-                <div class="w-full overflow-x-auto">
-                    <table class="w-full">
-                        <thead>
-                            <tr x-cloak x-data="{ tooltip: 'nenhum' }"
-                                class="relative text-xs font-semibold tracking-wide text-center text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3">
-                                    <div class="flex justify-center">
-                                        <div class="flex justify-center items-center cursor-pointer"
-                                            wire:click="sortBy('ID')" x-on:mouseover="tooltip = 'cod'"
-                                            x-on:mouseleave="tooltip = 'nenhum'">
-                                            <button
-                                                class="text-xs font-medium leading-4 tracking-wider uppercase">Código</button>
-                                            @include('includes.icon-filter', ['field' => 'ID'])
-                                        </div>
-
-                                        <div x-cloak x-show="tooltip === 'cod'" x-transition x-transition.duration.300ms
-                                            class="absolute z-10 p-2 mt-6 text-xs font-bold bg-gray-100 rounded-md dark:bg-gray-700">
-                                            <p>Ordenar pelo o Código</p>
-                                        </div>
-                                    </div>
-                                </th>
-
-                                <th class="px-4 py-3">
-                                    <div class="flex justify-center">
-                                        <div class="flex justify-center items-center cursor-pointer"
-                                            wire:click="sortBy('NOME')" x-on:mouseover="tooltip = 'nome'"
-                                            x-on:mouseleave="tooltip = 'nenhum'">
-                                            <button
-                                                class="text-xs font-medium leading-4 tracking-wider uppercase">Nome</button>
-                                            @include('includes.icon-filter', ['field' => 'NOME'])
-                                        </div>
-
-                                        <div x-cloak x-show="tooltip === 'nome'" x-transition x-transition.duration.300ms
-                                            class="absolute z-10 p-2 mt-6 text-xs font-bold bg-gray-100 rounded-md dark:bg-gray-700">
-                                            <p>Ordenar pelo o Nome</p>
-                                        </div>
-                                    </div>
-                                </th>
-
-                                <th class="px-4 py-3">
-                                    <div class="flex justify-center items-center cursor-pointer">
-                                        <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                            Descrição
-                                        </button>
-                                    </div>
-                                </th>
-
-                                <th class="px-4 py-3">
-                                    <div class="flex justify-center items-center cursor-pointer">
-                                        <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                            Tamanho
-                                        </button>
-                                    </div>
-                                </th>
-
-                                <th class="px-4 py-3">
-                                    <div class="flex justify-center items-center cursor-pointer">
-                                        <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                            Estoque
-                                        </button>
-                                    </div>
-                                </th>
-
-                                <th class="px-4 py-3">
-                                    <div class="flex justify-center items-center cursor-pointer">
-                                        <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                            Preço 1
-                                        </button>
-                                    </div>
-                                </th>
-
-                                <th class="px-4 py-3">
-                                    <div class="flex justify-center items-center cursor-pointer">
-                                        <button class="text-xs font-medium leading-4 tracking-wider uppercase">
-                                            Preço 2
-                                        </button>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            @foreach ($produtos as $produto)
-                                <tr wire:key="{{ $produto->ID }}"
-                                    class="font-bold text-sm text-gray-700 dark:text-gray-300">
-                                    <td class="py-3 text-center">
-                                        #{{ $produto->ID }}
-                                    </td>
-
-                                    <td class="py-3 px-28 text-center">
-                                        {{ $produto->NOME }}
-                                    </td>
-
-                                    <td class="py-3 text-center text-xs">
-                                        {{ $produto->DESCRICAO }}
-                                    </td>
-
-                                    <td class="py-3 px-28 text-center">
-                                        {{ $produto->TAMANHO }}
-                                    </td>
-
-                                    <td class="py-3 px-28 text-center">
-                                        {{ $produto->ESTOQUE }}
-                                    </td>
-
-                                    <td class="py-3 px-28 text-center">
-                                        R$ {{ number_format($produto->PRECO1, 2, ',') }}
-                                    </td>
-
-                                    <td class="py-3 px-28 text-center">
-                                        R$ {{ number_format($produto->PRECO2, 2, ',') }}
-                                    </td>
-
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div> --}}
-
-            <div class="w-full overflow-y-auto p-1 block space-y-6 mt-3">
+            <div class="w-full overflow-y-auto p-1 block space-y-4 mt-3">
                 @foreach ($produtos as $produto)
-                    <div wire:key="{{ $produto->ID }}"
-                        class="w-full p-1 font-semibold space-y-2 transition-all border rounded-md">
+                    <div wire:key="{{ $produto->ID }}" wire:click="produtoPedido({{ $produto->ID }})"
+                        x-on:click="$dispatch('open-modal', { name : 'addProduto' })"
+                        class="w-full p-1 font-semibold space-y-2 border rounded-md cursor-pointer transition-all hover:scale-95">
                         <div class="flex gap-6">
 
                             <div
@@ -198,17 +78,12 @@
                                         {{ $produto->DESCRICAO }}
                                     </span>
                                 </div>
-                                
+
                                 <div class="flex items-center gap-2 text-center text-sm tracking-wider">
                                     <span>Preço:</span>
                                     R$ {{ number_format($produto->PRECO1, 2, ',') }}
                                 </div>
-                                {{-- 
 
-                                <div class="flex items-center gap-2 text-center text-sm tracking-wider">
-                                    <span>Estoque</span>
-                                    {{ $produto->ESTOQUE }}
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -223,4 +98,86 @@
 
         @endslot
     </x-modal.modal-large>
+
+    <x-modal.modal-medium name="addProduto" title="Adicionar" subtitle="Item">
+        @slot('body')
+            <div class="space-y-6 mt-4">
+                <div class="flex items-center justify-center gap-6">
+
+                    {{-- <div>
+                        <x-inputs.label value="{{ 'Quantidade' }}" />
+                        <div class="flex items-center gap-1">
+                            <button x-on:click="remove()"
+                                class="text-white bg-red-500 p-1 rounded-full transition-all hover:scale-95">
+                                <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path d="M19 11H5V13H19V11Z"></path>
+                                </svg>
+                            </button>
+
+                            <div class="w-20">
+                                <x-input class="text-center" x-model.number="item.qtd" wire:model="quantidade"
+                                    x-mask:dynamic="$input.startsWith('37')
+                                        ? '999999999' : '999999999'
+                                " />
+                            </div>
+
+                            <button x-on:click="add()"
+                                class="text-white bg-blue-500 p-1 rounded-full transition-all hover:scale-95">
+                                <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div> --}}
+
+                    {{-- <div class="w-28">
+                        <x-inputs.label value="{{ 'Desc. %' }}" />
+                        <x-inputs.text type="number" wire:model="desconto" />
+                    </div> --}}
+
+                    <div class="flex flex-col items-center">
+                        <x-inputs.label value="{{ 'Preço Vendido' }}" />
+
+                        <div class="w-24">
+                            {{-- <x-input wire:model="valorUnitario" x-mask:dynamic="$money($input)" /> --}}
+                        </div>
+                    </div>
+                </div>
+
+                {{-- @if ($msgPedido)
+                    <h1 class="text-md text-center font-bold uppercase tracking-widest text-orange-500">
+                        Esse item já esta no pedido!
+                    </h1>
+                @endif --}}
+
+                <div class="flex justify-end">
+                    <x-buttons.primary>
+                        Adicionar
+                    </x-buttons.primary>
+                </div>
+            </div>
+        @endslot
+    </x-modal.modal-medium>
+
+    {{-- <script>
+        function initApp() {
+            const app = {
+                item: {
+                    qtd: 0,
+                },
+                add() {
+                    this.item.qtd++;
+                },
+                remove() {
+                    this.item.qtd--;
+                    if (this.item.qtd < 0) {
+                        this.item.qtd = 0;
+                    }
+                },
+            };
+            return app;
+        }
+    </script> --}}
 </div>

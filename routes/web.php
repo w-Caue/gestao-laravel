@@ -39,6 +39,9 @@ Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
     Route::prefix('/pedidos')->name('pedidos.')->group(function () {
         Route::get('/', PedidosList::class)
             ->name('listagem');
+
+        Route::get('/{codigo}', PedidosRegister::class)
+            ->name('register');
     });
 
     Route::prefix('/produtos')->name('produtos.')->group(function () {
