@@ -58,9 +58,9 @@
 
             <div class="w-full overflow-y-auto p-1 block space-y-4 mt-3">
                 @foreach ($produtos as $produto)
-                    <div wire:key="{{ $produto->ID }}" wire:click="produtoPedido({{ $produto->ID }})"
-                        x-on:click="$dispatch('open-modal', { name : 'addProduto' })"
-                        class="w-full p-1 font-semibold space-y-2 border rounded-md cursor-pointer transition-all hover:scale-95">
+                    <div x-cloak x-data="{ addProd: 'empty' }" wire:key="{{ $produto->ID }}" x-on:mouseover="addProd = 'view'"
+                        x-on:mouseleave="addProd = 'empty'"
+                        class="w-full p-1 font-semibold space-y-2 border rounded-md cursor-pointer transition-all">
                         <div class="flex gap-6">
 
                             <div
@@ -68,7 +68,7 @@
                                 @livewire('produtos.produto-foto')
                             </div>
 
-                            <div class="flex flex-col gap-1">
+                            <div class="flex flex-col gap-1 relative">
                                 <span class="font-bold text-sm tracking-widest uppercase">
                                     {{ $produto->NOME }}
                                 </span>
@@ -84,8 +84,47 @@
                                     R$ {{ number_format($produto->PRECO1, 2, ',') }}
                                 </div>
 
+                                <div x-cloak x-show="addProd === 'view'" x-transition x-transition.duration.300ms
+                                    class="w-full bg-white p-1 absolute flex items-end">
+                                    <div>
+                                        <x-inputs.label value="{{ 'Quantidade' }}" />
+                                        <div class="flex items-center gap-1">
+                                            <button x-on:click="remove()"
+                                                class="text-white bg-red-500 p-1 rounded-full transition-all hover:scale-95">
+                                                <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="currentColor">
+                                                    <path d="M19 11H5V13H19V11Z"></path>
+                                                </svg>
+                                            </button>
+
+                                            <div class="w-20">
+                                                <x-input class="text-center" x-model.number="item.qtd"
+                                                    wire:model="quantidade"
+                                                    x-mask:dynamic="$input.startsWith('37')
+                                                        ? '999999999' : '999999999'
+                                                " />
+                                            </div>
+
+                                            <button x-on:click="add()"
+                                                class="text-white bg-blue-500 p-1 rounded-full transition-all hover:scale-95">
+                                                <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="currentColor">
+                                                    <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-end">
+                                        <x-buttons.primary>
+                                            Adicionar
+                                        </x-buttons.primary>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+
                     </div>
                 @endforeach
             </div>
@@ -161,7 +200,7 @@
         @endslot
     </x-modal.modal-medium>
 
-    {{-- <script>
+    <script>
         function initApp() {
             const app = {
                 item: {
@@ -179,5 +218,5 @@
             };
             return app;
         }
-    </script> --}}
+    </script>
 </div>
