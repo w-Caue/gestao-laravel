@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Agenda\Calendar;
+use App\Livewire\Auth\Ecommerce\Login as EcommerceLogin;
 use App\Livewire\Auth\Login;
 use App\Livewire\Clientes\ClientesList;
 use App\Livewire\Clientes\ClientesRegister;
@@ -14,43 +15,13 @@ use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/login', Login::class)->name('login');
+//Routes Admin
+require_once "admin.php";
 
-Route::get('/login', function () {
-    return view('pages.auth.login');
+Route::get('/', function () {
+    return view('welcome');
 })->name('login');
 
-Route::get('/logout', function () {
-    Auth::logout(false);
-    session()->flush();
-    // return redirect()->route('welcome');
-})->name('logout');
-
-Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
-
-    Route::get('/dashboard', Dashboard::class)
-        ->name('dashboard');
-
-    Route::prefix('/clientes')->name('clientes.')->group(function () {
-        Route::get('/', ClientesList::class)
-            ->name('listagem');
-    });
-
-    Route::prefix('/pedidos')->name('pedidos.')->group(function () {
-        Route::get('/', PedidosList::class)
-            ->name('listagem');
-
-        Route::get('/{codigo}', PedidosRegister::class)
-            ->name('register');
-    });
-
-    Route::prefix('/produtos')->name('produtos.')->group(function () {
-        Route::get('/', ProdutosList::class)
-            ->name('listagem');
-    });
-
-    Route::prefix('/funcionarios')->name('funcionarios.')->group(function () {
-        Route::get('/', FuncionariosList::class)
-            ->name('listagem');
-    });
-});
+Route::get('/login', function(){
+    return view('pages.auth.ecommerce.login');
+})->name('login');
