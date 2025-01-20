@@ -20,8 +20,16 @@ require_once "admin.php";
 
 Route::get('/', function () {
     return view('welcome');
-})->name('login');
+})->name('welcome');
 
-Route::get('/login', function(){
-    return view('pages.auth.ecommerce.login');
-})->name('login');
+Route::middleware('guest:web')->group(function () {
+    Route::get('/login', function () {
+        return view('pages.auth.ecommerce.login');
+    })->name('login');
+
+    Route::get('logout', function () {
+        Auth::logout(false);
+        session()->flush();
+        // return redirect()->route('welcome');
+    })->name('admin.logout');
+});

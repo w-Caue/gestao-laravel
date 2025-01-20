@@ -9,17 +9,20 @@ use App\Livewire\Produtos\ProdutosList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/admin/login', function () {
-//     return view('pages.auth.login');
-// })->name('admin.login');
 
-// Route::get('/admin/logout', function () {
-//     Auth::logout(false);
-//     session()->flush();
-//     // return redirect()->route('welcome');
-// })->name('admin.logout');
+Route::prefix('admin')->middleware('guest:admin')->group(function () {
+    Route::get('login', function () {
+        return view('pages.auth.login');
+    })->name('admin.login');
 
-Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
+    Route::get('logout', function () {
+        Auth::logout(false);
+        session()->flush();
+        // return redirect()->route('welcome');
+    })->name('admin.logout');
+});
+
+Route::prefix('admin')->middleware('auth:admin')->prefix('/admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', Dashboard::class)
         ->name('dashboard');

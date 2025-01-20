@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Auth;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -24,11 +24,11 @@ class Login extends Component
         $this->validate();
 
         $email = trim($this->email);
-        $user = User::where('email', $email)
+        $admin = Admin::where('email', $email)
             // ->where('DELETADO', "=", 'N')
             ->first();
 
-        if ($user == null) {
+        if ($admin == null) {
             return $this->alert('error', 'Usuário não encontrado.', [
                 'position' => 'center',
                 'text' => 'Verifique as credenciais de login.',
@@ -37,7 +37,7 @@ class Login extends Component
             ]);
         }
 
-        $senhaCorreta = Hash::check($this->senha, $user->password);
+        $senhaCorreta = Hash::check($this->senha, $admin->password);
 
         if (!$senhaCorreta) {
             return $this->alert('error', 'Senha incorreta!', [
@@ -47,7 +47,7 @@ class Login extends Component
             ]);
         }
 
-        Auth::login($user, false);
+        Auth::guard('admin')->login($admin, false);
         return redirect()->route('admin.dashboard');
     }
 
