@@ -86,14 +86,14 @@
                         <li>
                             <div class="uppercase tracking-widest">
                                 <span class="text-xs dark:text-gray-400">Acessando como:</span>
-                                {{-- <h1 class="text-md">{{ auth()->guard('tenant')->user()->LOGIN ?? '' }}</h1> --}}
+                                <h1 class="text-md">{{ auth()->guard('admin')->user()->name ?? '' }}</h1>
                             </div>
                         </li>
 
                         <div class="border dark:border-gray-700"></div>
 
                         <li class="flex">
-                            <a href="{{ route('logout') }}"
+                            <a href="{{ route('admin.logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                 class="inline-flex items-center w-full py-1 text-xs font-semibold uppercase transition-colors duration-150 rounded-md hover:bg-red-100 hover:text-gray-800 dark:hover:bg-red-800 dark:hover:text-gray-200">
                                 <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -106,7 +106,7 @@
                                 <span>Sair</span>
                             </a>
                             <form id="logout-form"
-                                action="{{ route('logout') }}"
+                                action="{{ route('admin.logout') }}"
                                 method="GET" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
